@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
-import 'package:food_app_order/screens/home.dart';
+import 'package:food_app_order/screens/home/home.dart';
 import 'package:food_app_order/services/sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
