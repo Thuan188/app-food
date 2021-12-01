@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app_order/screens/home/drawer_side.dart';
 import 'package:food_app_order/screens/home/signal_product.dart';
+import 'package:food_app_order/helpers/colors.dart';
+import 'package:food_app_order/screens/product_overview/product_overview.dart';
+import 'package:food_app_order/screens/search/search.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -9,122 +13,42 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      drawer: Drawer(
-        child: Container(
-          color: Colors.green,
-          child: ListView(
-            children: [
-              DrawerHeader(
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white54,
-                      radius: 43,
-                      child: CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Colors.yellow,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("Guest"),
-                          SizedBox(
-                            height: 7,
-                          ),
-                          Container(
-                            height: 30,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: Text("Login"),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  side: BorderSide(width: 2)),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              listTile(Icons.home_outlined, "Home"),
-              listTile(Icons.shopping_bag_outlined, "Cart"),
-              listTile(Icons.person_outline, "My Profile"),
-              listTile(Icons.notifications_outlined, "Notification"),
-              listTile(Icons.star_border_outlined, "Rating & Review"),
-              listTile(Icons.favorite_outline, "Wishlist"),
-              listTile(Icons.copy_outlined, "Raise a Complaint "),
-              listTile(Icons.file_copy_outlined, "FAQs"),
-              Container(
-                height: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Contact Support"),
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 3, left: 10),
-                          child: Text("Call us: "),
-                        ),
-                        Text(
-                          "+84 898 210 911",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 3, left: 10),
-                            child: Text("Mail us: "),
-                          ),
-                          Text(
-                            "admin.food@gmail.com",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      drawer: DrawerSide(),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: textColor),
         title: Text(
           'Home',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: textColor),
         ),
         actions: [
           CircleAvatar(
             radius: 15,
-            backgroundColor: Colors.greenAccent,
-            child: Icon(
-              Icons.search,
-              color: Colors.black,
+            backgroundColor: primaryColor,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: IconButton(
+                onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Search()));
+                },
+                icon:Icon(
+                Icons.search),
+                color: textColor,
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
             child: CircleAvatar(
               radius: 15,
-              child: Icon(
-                Icons.shop,
-                color: Colors.black,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 2),
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: textColor,
+                ),
               ),
-              backgroundColor: Colors.greenAccent,
+              backgroundColor: primaryColor,
             ),
           )
         ],
@@ -198,229 +122,237 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'All Vegetables',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  Text(
-                    'See all',
-                    style: TextStyle(fontSize: 15, color: Colors.grey),
-                  )
-                ],
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  itemProductVegetables(),
-                  itemProductVegetables(),
-                  itemProductVegetables(),
-                  itemProductVegetables()
-                ],
-              ),
-            ),
+            itemVegetableProduct(context),
             SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Fresh Fruits',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  Text(
-                    'See all',
-                    style: TextStyle(fontSize: 15, color: Colors.grey),
-                  )
-                ],
-              ),
-            ),
-            SingleChildScrollView(scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SignalProduct(
-                    productName: "Bannana",
-                    productImage: "https://tsf.vn/Upload/product/iqf-banana-9319.png",
-                    productPrice: 30000,
-                  ),
-                  SignalProduct(
-                    productName: "Bannana",
-                    productImage: "https://tsf.vn/Upload/product/iqf-banana-9319.png",
-                    productPrice: 30000,
-                  ),
-                  SignalProduct(
-                    productName: "Bannana",
-                    productImage: "https://tsf.vn/Upload/product/iqf-banana-9319.png",
-                    productPrice: 30000,
-                  )
-                ],
-              ),
-            ),
+            itemFreshProduct(context),
             SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Milk Products',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  Text(
-                    'See all',
-                    style: TextStyle(fontSize: 15, color: Colors.grey),
-                  )
-                ],
-              ),
-            ),
-            SingleChildScrollView(scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SignalProduct(
-                    productName: "Cheese",
-                    productImage: "https://salt.tikicdn.com/cache/525x525/ts/product/00/bd/ef/d1dd18cef3cf91ee3fd0b1d00b75a1ad.png",
-                    productPrice: 45000,
-                  ),
-                  SignalProduct(
-                    productName: "Cheese",
-                    productImage: "https://salt.tikicdn.com/cache/525x525/ts/product/00/bd/ef/d1dd18cef3cf91ee3fd0b1d00b75a1ad.png",
-                    productPrice: 45000,
-                  ),
-                  SignalProduct(
-                    productName: "Cheese",
-                    productImage: "https://salt.tikicdn.com/cache/525x525/ts/product/00/bd/ef/d1dd18cef3cf91ee3fd0b1d00b75a1ad.png",
-                    productPrice: 45000,
-                  )
-                ],
-              ),
-            ),
+            itemMilkProducts(context)
           ],
         ),
       ),
     );
   }
 
-  Widget itemProductVegetables() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 12),
-      child: Row(
-        children: [
-          Container(
-            height: 250,
-            width: 160,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              children: [
-                Expanded(
-                    flex: 2,
-                    child: Image.network(
-                        'https://i.pinimg.com/originals/fb/3d/19/fb3d19eed64b4f577d7384f011788a88.png')),
-                Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Tomatoes',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text(
-                        '20000đ/kg',
-                        style: TextStyle(fontWeight: FontWeight.normal),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: Center(
-                                  child: Text(
-                                    '1kg',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                )),
-                                Icon(Icons.arrow_drop_down)
-                              ],
-                            ),
-                          )),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Expanded(
-                              child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.remove,
-                                  color: Colors.redAccent,
-                                ),
-                                Text(
-                                  "1",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.redAccent,
-                                )
-                              ],
-                            ),
-                          ))
-                        ],
-                      )
-                    ],
-                  ),
-                ))
-              ],
-            ),
-          )
-        ],
-      ),
+  Widget itemFreshProduct(context){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Fresh Fruits',
+                style: TextStyle(fontSize: 15),
+              ),
+              Text(
+                'See all',
+                style: TextStyle(fontSize: 15, color: Colors.grey),
+              )
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              SignalProduct(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductOverview(
+                        productName: "Bannana",
+                        productImage:
+                        "https://tsf.vn/Upload/product/iqf-banana-9319.png",
+                      )));
+                },
+                productName: "Bannana",
+                productImage:
+                "https://tsf.vn/Upload/product/iqf-banana-9319.png",
+                productPrice: 30000,
+              ),
+              SignalProduct(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductOverview(
+                        productName: "Mangoes",
+                        productImage:
+                        "https://product.hstatic.net/1000119621/product/xoai_20cat_20hoa_20loc-502x502_0ac68d3067aa49d8841cbd55d1be4c41_large.png",
+                      )));
+                },
+                productName: "Mangoes",
+                productImage:
+                "https://product.hstatic.net/1000119621/product/xoai_20cat_20hoa_20loc-502x502_0ac68d3067aa49d8841cbd55d1be4c41_large.png",
+                productPrice: 30000,
+              ),
+              SignalProduct(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductOverview(
+                        productName: "Plum",
+                        productImage:
+                        "https://nongsansachmiennam.com/upload/product/22-removebg-preview-4378.png",
+                      )));
+                },
+                productName: "Plum",
+                productImage:
+                "https://nongsansachmiennam.com/upload/product/22-removebg-preview-4378.png",
+                productPrice: 30000,
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 
-  Widget listTile(IconData icon, String title) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        size: 32,
-      ),
-      title: Text(
-        title,
-        style: TextStyle(color: Colors.black45),
-      ),
+  Widget itemMilkProducts(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Dairy Products',
+                style: TextStyle(fontSize: 15),
+              ),
+              Text(
+                'See all',
+                style: TextStyle(fontSize: 15, color: Colors.grey),
+              )
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              SignalProduct(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductOverview(
+                            productName: "Cheese",
+                            productImage:
+                                "https://salt.tikicdn.com/cache/525x525/ts/product/00/bd/ef/d1dd18cef3cf91ee3fd0b1d00b75a1ad.png",
+                          )));
+                },
+                productName: "Cheese",
+                productImage:
+                    "https://salt.tikicdn.com/cache/525x525/ts/product/00/bd/ef/d1dd18cef3cf91ee3fd0b1d00b75a1ad.png",
+                productPrice: 30000,
+              ),
+              SignalProduct(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductOverview(
+                            productName: "Dairy cows",
+                            productImage:
+                                "https://www.vinamilk.com.vn/sua-tuoi-vinamilk/wp-content/uploads/2021/04/FinoPackshot_Khongduong_540x440_acf_cropped.png",
+                          )));
+                },
+                productName: "Dairy cows",
+                productImage:
+                    "https://www.vinamilk.com.vn/sua-tuoi-vinamilk/wp-content/uploads/2021/04/FinoPackshot_Khongduong_540x440_acf_cropped.png",
+                productPrice: 30000,
+              ),
+              SignalProduct(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductOverview(
+                            productName: "Butter",
+                            productImage:
+                                "https://dtgxwmigmg3gc.cloudfront.net/imagery/assets/derivations/icon/512/512/true/eyJpZCI6IjU5ZjVhNGMwYzcxZTgwNzkwNDI1YzBiM2JjNThiNGM2Iiwic3RvcmFnZSI6InB1YmxpY19zdG9yZSJ9?signature=a700038c388995c7eb2c9ef9ddd79e6581a12018b23ae7b23cc3281a5f92760d",
+                          )));
+                },
+                productName: "Butter",
+                productImage:
+                    "https://dtgxwmigmg3gc.cloudfront.net/imagery/assets/derivations/icon/512/512/true/eyJpZCI6IjU5ZjVhNGMwYzcxZTgwNzkwNDI1YzBiM2JjNThiNGM2Iiwic3RvcmFnZSI6InB1YmxpY19zdG9yZSJ9?signature=a700038c388995c7eb2c9ef9ddd79e6581a12018b23ae7b23cc3281a5f92760d",
+                productPrice: 30000,
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget itemVegetableProduct(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Vegetable Products',
+                style: TextStyle(fontSize: 15),
+              ),
+              Text(
+                'See all',
+                style: TextStyle(fontSize: 15, color: Colors.grey),
+              )
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              SignalProduct(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductOverview(
+                            productName: "Tomatoes",
+                            productImage:
+                                "https://dtgxwmigmg3gc.cloudfront.net/imagery/assets/derivations/icon/256/256/true/eyJpZCI6ImJiNDQzYzZmYmYxMThkZTRjMGY2ZDY0NjU3ZmRkYTZiLmpwZyIsInN0b3JhZ2UiOiJwdWJsaWNfc3RvcmUifQ?signature=c2fd1beb61881cdb6f63037e045b2ea1a9eb8e22e089508a8a4a38639c39df11",
+                          )));
+                },
+                productName: "Tomatoes",
+                productImage:
+                    "https://dtgxwmigmg3gc.cloudfront.net/imagery/assets/derivations/icon/256/256/true/eyJpZCI6ImJiNDQzYzZmYmYxMThkZTRjMGY2ZDY0NjU3ZmRkYTZiLmpwZyIsInN0b3JhZ2UiOiJwdWJsaWNfc3RvcmUifQ?signature=c2fd1beb61881cdb6f63037e045b2ea1a9eb8e22e089508a8a4a38639c39df11",
+                productPrice: 30000,
+              ),
+              SignalProduct(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductOverview(
+                            productName: "Cabbage",
+                            productImage:
+                                "https://fujimart.vn/image/cache/catalog/rau%20cu%20qua/BAP%20CAI%20TIM%20DA%20LAT-502x502.png",
+                          )));
+                },
+                productName: "Cabbage",
+                productImage:
+                    "https://fujimart.vn/image/cache/catalog/rau%20cu%20qua/BAP%20CAI%20TIM%20DA%20LAT-502x502.png",
+                productPrice: 30000,
+              ),
+              SignalProduct(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductOverview(
+                            productName: "Potatoes",
+                            productImage:
+                                "https://i2.wp.com/uforganics.com.vn/wp-content/uploads/2019/06/083-khoai-t%C3%A2y-h%E1%BB%AFu-c%C6%A1-organic-ufo-univers-farms-organics-s%E1%BA%A1ch-ti%C3%AAu-chu%E1%BA%A9n-ch%C3%A2u-%C3%A2u.png?fit=800%2C800&ssl=1",
+                          )));
+                },
+                productName: "Potatoes",
+                productImage:
+                    "https://i2.wp.com/uforganics.com.vn/wp-content/uploads/2019/06/083-khoai-t%C3%A2y-h%E1%BB%AFu-c%C6%A1-organic-ufo-univers-farms-organics-s%E1%BA%A1ch-ti%C3%AAu-chu%E1%BA%A9n-ch%C3%A2u-%C3%A2u.png?fit=800%2C800&ssl=1",
+                productPrice: 30000,
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

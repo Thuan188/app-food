@@ -7,8 +7,13 @@ import 'package:food_app_order/screens/home/home.dart';
 import 'package:food_app_order/services/sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   //const SignIn({Key? key}) : super(key: key);
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   Future<void> _googleSignUp() async {
     try {
       final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -18,7 +23,7 @@ class SignIn extends StatelessWidget {
 
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+          await googleUser.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -39,6 +44,7 @@ class SignIn extends StatelessWidget {
       print(e.message);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,9 +85,9 @@ class SignIn extends StatelessWidget {
                 SignInButton(
                   Buttons.Google,
                   text: "Sign in with Google",
-                  onPressed: () {
-                    _googleSignUp().then((value) =>
-                        Navigator.of(context).push(MaterialPageRoute(
+                  onPressed: () async {
+                    await _googleSignUp().then((value) => Navigator.of(context)
+                        .push(MaterialPageRoute(
                             builder: (context) => HomeScreen())));
                   },
                 ),

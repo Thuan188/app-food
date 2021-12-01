@@ -19,12 +19,12 @@ class SignalProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 12),
+      margin: EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
           Container(
             height: 240,
-            width: 160,
+            width: 155,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -32,10 +32,17 @@ class SignalProduct extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                    flex: 2,
+                GestureDetector(
+                  onTap: onTap,
+                  child: Container(
+                    height: 150,
+                    padding: EdgeInsets.all(5),
+                    width: double.infinity,
                     child: Image.network(
-                        productImage)),
+                      productImage,
+                    ),
+                  ),
+                ),
                 Expanded(
                     child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),

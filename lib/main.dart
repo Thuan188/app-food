@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app_order/auth/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:food_app_order/helpers/colors.dart';
 import 'package:food_app_order/screens/home/home.dart';
+import 'package:food_app_order/screens/search/search.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +21,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: scaffoldBackgroundColor
       ),
+      debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
   }
