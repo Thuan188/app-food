@@ -1,30 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:food_app_order/helpers/colors.dart';
+import 'package:food_app_order/models/product.dart';
+import 'package:food_app_order/widgets/count.dart';
+import 'package:food_app_order/widgets/product_unit.dart';
 
-class SignalProduct extends StatelessWidget {
+class SignalProduct extends StatefulWidget {
   final String productImage;
   final String productName;
   final int productPrice;
   final Function onTap;
   final String productId;
+  final productUnit;
 
-  SignalProduct(
-      {Key key,
-      this.productImage,
-      this.productName,
-      this.productPrice,
-      this.onTap,
-      this.productId})
-      : super(key: key);
+  SignalProduct({
+    Key key,
+    this.productImage,
+    this.productName,
+    this.productPrice,
+    this.onTap,
+    this.productId,
+    this.productUnit,
+  }) : super(key: key);
 
   @override
+  State<SignalProduct> createState() => _SignalProductState();
+}
+
+class _SignalProductState extends State<SignalProduct> {
+  var unitData;
+  var firstUnitValue;
+  @override
   Widget build(BuildContext context) {
+    widget.productUnit.firstWhere((element) {
+      setState(() {
+        firstUnitValue = element;
+      });
+      return true;
+    });
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      margin: EdgeInsets.symmetric(horizontal: 5),
       child: Row(
         children: [
           Container(
             height: 240,
-            width: 155,
+            width: 177,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -33,13 +52,13 @@ class SignalProduct extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: onTap,
+                  onTap: widget.onTap,
                   child: Container(
-                    height: 150,
+                    height: 160,
                     padding: EdgeInsets.all(5),
                     width: double.infinity,
                     child: Image.network(
-                      productImage,
+                      widget.productImage,
                     ),
                   ),
                 ),
@@ -50,68 +69,68 @@ class SignalProduct extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        productName,
+                        widget.productName,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       Text(
-                        '${productPrice}/kg',
+                        ' ${widget.productPrice}đ/${unitData == null ? firstUnitValue : unitData}',
                         style: TextStyle(fontWeight: FontWeight.normal),
                       ),
                       Row(
                         children: [
                           Expanded(
-                              child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: Center(
-                                  child: Text(
-                                    '1kg',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                )),
-                                Icon(Icons.arrow_drop_down)
-                              ],
+                            child: ProductUnit(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: widget.productUnit
+                                          .map<Widget>((data) {
+                                        return Column(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 18.0,
+                                                      horizontal: 10),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  setState(() {
+                                                    unitData = data;
+                                                  });
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text(
+                                                  data,
+                                                  style: TextStyle(
+                                                      color: primaryColor),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      }).toList(),
+                                    );
+                                  },
+                                );
+                              },
+                              title:
+                                  unitData == null ? firstUnitValue : unitData,
                             ),
-                          )),
+                          ),
                           SizedBox(
                             width: 5,
                           ),
-                          Expanded(
-                              child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.remove,
-                                  color: Colors.redAccent,
-                                ),
-                                Text(
-                                  "1",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.redAccent,
-                                )
-                              ],
-                            ),
-                          ))
+                          Count(
+                            productId: widget.productId,
+                            productImage: widget.productImage,
+                            productPrice: widget.productPrice,
+                            productName: widget.productName,
+                            productUnit:  unitData == null ? firstUnitValue : unitData,
+                          )
                         ],
                       )
                     ],

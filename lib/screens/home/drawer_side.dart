@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:food_app_order/helpers/colors.dart';
+import 'package:food_app_order/providers/user.dart';
+import 'package:food_app_order/screens/home/home.dart';
 import 'package:food_app_order/screens/my_profile/my_profile.dart';
 import 'package:food_app_order/screens/review_cart/review_cart.dart';
+import 'package:food_app_order/screens/wishlist/wish_list.dart';
 
-class DrawerSide extends StatelessWidget {
-  DrawerSide({Key key}) : super(key: key);
+class DrawerSide extends StatefulWidget {
+  UserProvider userProvider;
+  DrawerSide({this.userProvider});
 
-  Widget listTile(IconData icon, String title, VoidCallback onTap) {
+  @override
+  State<DrawerSide> createState() => _DrawerSideState();
+}
+
+class _DrawerSideState extends State<DrawerSide> {
+  Widget listTile({IconData icon, String title, VoidCallback onTap}) {
     return ListTile(
       onTap: onTap,
       leading: Icon(
@@ -22,6 +31,7 @@ class DrawerSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userData = widget.userProvider.currentUserData;
     return Drawer(
       child: Container(
         width: 100,
@@ -29,60 +39,80 @@ class DrawerSide extends StatelessWidget {
         child: ListView(
           children: [
             DrawerHeader(
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white54,
-                    radius: 43,
-                    child: Container(
-                      width: 75,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('assets/splash.png'),
-                        radius: 40,
-                        backgroundColor: Colors.yellow,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.white54,
+                      radius: 43,
+                      child: Center(
+                        child: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(userData.userImage ?? '',scale: 30),
+                          radius: 40,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Guest"),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        Container(
-                          height: 30,
-                          child: MaterialButton(
-                            onPressed: () {
-                            },
-                            child: Text("Login"),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                side: BorderSide(width: 2)),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(userData.userName),
+                          SizedBox(
+                            height: 10,
                           ),
-                        )
-                      ],
+                          Text(userData.userEmail),
+                        ],
+                      ),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
             ),
-            listTile(Icons.home_outlined, "Home", () {}),
-            listTile(Icons.shopping_bag_outlined, "Cart", () {
+            listTile(icon: Icons.home_outlined, title: "Home", onTap: () {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => ReviewCart()));
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
             }),
-            listTile(Icons.person_outline, "My Profile", () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => MyProfile()));
-            }),
-            listTile(Icons.notifications_outlined, "Notification", () {}),
-            listTile(Icons.star_border_outlined, "Rating & Review", () {}),
-            listTile(Icons.favorite_outline, "Wishlist", () {}),
-            listTile(Icons.copy_outlined, "Raise a Complaint", () {}),
-            listTile(Icons.file_copy_outlined, "FAQs", () {}),
+            listTile(
+                icon: Icons.shopping_bag_outlined,
+                title: "Cart",
+                onTap: () {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => ReviewCart()));
+                }),
+            listTile(
+                icon: Icons.person_outline,
+                title: "My Profile",
+                onTap: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => MyProfile(
+                            userProvider: widget.userProvider,
+                          )));
+                }),
+            listTile(
+                icon: Icons.notifications_outlined,
+                title: "Notification",
+                onTap: () {}),
+            listTile(
+                icon: Icons.star_border_outlined,
+                title: "Rating & Review",
+                onTap: () {}),
+            listTile(
+                icon: Icons.favorite_outline,
+                title: "Wishlist",
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => WishList()));
+                }),
+            listTile(
+                icon: Icons.copy_outlined,
+                title: "Raise a Complaint",
+                onTap: () {}),
+            listTile(
+                icon: Icons.file_copy_outlined, title: "FAQs", onTap: () {}),
             Container(
               height: 300,
               child: Column(

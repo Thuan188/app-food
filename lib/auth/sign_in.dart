@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:food_app_order/providers/user.dart';
 import 'package:food_app_order/screens/home/home.dart';
 import 'package:food_app_order/services/sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   //const SignIn({Key? key}) : super(key: key);
@@ -14,6 +16,8 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+
+  UserProvider userProvider;
   Future<void> _googleSignUp() async {
     try {
       final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -32,12 +36,12 @@ class _SignInState extends State<SignIn> {
 
       final User user = (await _auth.signInWithCredential(credential)).user;
       print("signed in " + user.displayName);
-      // userProvider.addUserData(
-      //   currentUser: user,
-      //   userEmail: user.email,
-      //   userImage: user.photoURL,
-      //   userName: user.displayName,
-      // );
+       userProvider.addUserData(
+        currentUser: user,
+        userEmail: user.email,
+        userImage: user.photoURL,
+        userName: user.displayName,
+      );
 
       return user;
     } catch (e) {
@@ -47,6 +51,8 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+
+   userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -87,7 +93,7 @@ class _SignInState extends State<SignIn> {
                   text: "Sign in with Google",
                   onPressed: () async {
                     await _googleSignUp().then((value) => Navigator.of(context)
-                        .push(MaterialPageRoute(
+                        .pushReplacement(MaterialPageRoute(
                             builder: (context) => HomeScreen())));
                   },
                 ),

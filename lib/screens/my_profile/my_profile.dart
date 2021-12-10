@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:food_app_order/helpers/colors.dart';
+import 'package:food_app_order/models/user.dart';
+import 'package:food_app_order/providers/user.dart';
 import 'package:food_app_order/screens/home/drawer_side.dart';
 
-class MyProfile extends StatelessWidget {
-  MyProfile({Key key}) : super(key: key);
+class MyProfile extends StatefulWidget {
+  UserProvider userProvider;
+  MyProfile({this.userProvider});
 
+  @override
+  State<MyProfile> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<MyProfile> {
   Widget listTile(IconData icon, String title) {
     return Column(
       children: [
@@ -22,17 +30,21 @@ class MyProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userData = widget.userProvider.currentUserData;
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: textColor),
         backgroundColor: Colors.green,
         elevation: 0.0,
         title: Text(
           "My Profile",
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
       ),
-      drawer: DrawerSide(),
+      drawer: DrawerSide(
+        userProvider: widget.userProvider,
+      ),
       body: Stack(
         children: [
           Column(
@@ -67,16 +79,17 @@ class MyProfile extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Dong Duc",
+                                    userData.userName,
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: textColor),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: textColor,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text('dongphuocducdn1999@gmail.com')
+                                  Text(userData.userEmail)
                                 ],
                               ),
                               CircleAvatar(
@@ -110,7 +123,9 @@ class MyProfile extends StatelessWidget {
               backgroundColor: scaffoldBackgroundColor,
               child: CircleAvatar(
                 radius: 45,
-                backgroundImage: AssetImage('assets/splash.png'),
+                backgroundImage: AssetImage(
+                  userData.userImage ?? 'assets/avt.png',
+                ),
               ),
             ),
           )
