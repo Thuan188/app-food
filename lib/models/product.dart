@@ -4,7 +4,7 @@ class ProductModel {
   int productPrice;
   String productId;
   int productQuantity;
-  var productUnit;
+  List<dynamic> productUnit;
 
   ProductModel({
     this.productName,

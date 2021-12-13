@@ -32,6 +32,8 @@ class _DrawerSideState extends State<DrawerSide> {
   @override
   Widget build(BuildContext context) {
     var userData = widget.userProvider.currentUserData;
+    userData.userImage =
+    'https://lh3.googleusercontent.com/a-/AOh14GjAOHeQ41vUI298cczrt92IbBcXaSCXQqOd5w29bw=s360-p-rw-no';
     return Drawer(
       child: Container(
         width: 100,
@@ -44,15 +46,14 @@ class _DrawerSideState extends State<DrawerSide> {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: Colors.white54,
-                      radius: 43,
-                      child: Center(
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(userData.userImage ?? '',scale: 30),
-                          radius: 40,
-                        ),
-                      ),
+                      radius: 45,
+                      child: ClipOval(
+                          child: Image.network(
+                            userData.userImage ?? '',
+                            fit: BoxFit.cover,
+                            width: 85.0,
+                            height: 85.0,
+                          )),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),

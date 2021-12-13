@@ -10,7 +10,7 @@ class SignalProduct extends StatefulWidget {
   final int productPrice;
   final Function onTap;
   final String productId;
-  final productUnit;
+  final  productUnit;
 
   SignalProduct({
     Key key,

@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -114,12 +112,13 @@ class _ProductOverviewState extends State<ProductOverview> {
                 });
                 if (wishListBool == true) {
                   wishListProvider.addWishListData(
-                      wishListId: widget.productId,
-                      wishListImage: widget.productImage,
-                      wishListName: widget.productName,
-                      wishListPrice: widget.productPrice,
-                      wishListUnit: widget.productUnit,
-                      wishListQuantity: 2);
+                    wishListId: widget.productId,
+                    wishListImage: widget.productImage,
+                    wishListName: widget.productName,
+                    wishListPrice: widget.productPrice,
+                    // wishListUnit: widget.productUnit,
+                    wishListQuantity: 2,
+                  );
                 } else {
                   wishListProvider.deleteWishList(widget.productId);
                 }
@@ -131,8 +130,8 @@ class _ProductOverviewState extends State<ProductOverview> {
               title: "Go to Cart",
               iconData: Icons.shopping_cart_outlined,
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => ReviewCart()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ReviewCart()));
               })
         ],
       ),
@@ -200,7 +199,7 @@ class _ProductOverviewState extends State<ProductOverview> {
                             productImage: widget.productImage,
                             productName: widget.productName,
                             productPrice: widget.productPrice,
-                            productUnit: widget.productUnit,
+                            productUnit:'500gram',
                           )
                           // Container(
                           //   padding: EdgeInsets.symmetric(

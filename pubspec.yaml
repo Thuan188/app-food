@@ -44,6 +44,8 @@ dependencies:
   google_maps_flutter: any
   pay: ^1.0.6
 
+  cached_network_image: ^3.2.0
+
 
 
 dev_dependencies:

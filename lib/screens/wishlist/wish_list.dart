@@ -5,21 +5,37 @@ import 'package:food_app_order/models/product.dart';
 import 'package:food_app_order/providers/cart.dart';
 import 'package:food_app_order/providers/wishlist.dart';
 import 'package:food_app_order/screens/home/home.dart';
+import 'package:food_app_order/widgets/product_unit.dart';
 import 'package:food_app_order/widgets/single_item.dart';
 import 'package:provider/provider.dart';
 
 class WishList extends StatefulWidget {
+  // final ProductModel productUnit;
+  //
+  // WishList({this.productUnit});
+
   @override
   State<WishList> createState() => _WishListState();
 }
 
 class _WishListState extends State<WishList> {
   WishListProvider wishListProvider;
+  // var unitData;
+  // var firstUnitValue;
 
   @override
   Widget build(BuildContext context) {
-    wishListProvider = Provider.of<WishListProvider>(context);
+
+
+    wishListProvider = Provider.of(context);
     wishListProvider.getWishListData();
+
+    // widget.productUnit.productUnit.firstWhere((element) {
+    //   setState(() {
+    //     firstUnitValue = element;
+    //   });
+    //   return true;
+    // });
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -39,10 +55,11 @@ class _WishListState extends State<WishList> {
         ),
       ),
       body: ListView.builder(
-        itemCount: wishListProvider.getWishList.length,
+        itemCount: wishListProvider.getWishListDataList.length,
         itemBuilder: (context, index) {
-          ProductModel data = wishListProvider.getWishList[index];
+          ProductModel data = wishListProvider.getWishListDataList[index];
           return Column(children: [
+
             SizedBox(
               height: 10,
             ),
@@ -53,11 +70,53 @@ class _WishListState extends State<WishList> {
               productPrice: data.productPrice,
               productId: data.productId,
               productQuantity: data.productQuantity,
-              productUnit: data.productUnit,
+//productUnit:  unitData == null ? firstUnitValue : unitData,
               onDelete: () {
                 showAlertDialog(context, data);
               },
             ),
+            // Expanded(
+            //   child: ProductUnit(
+            //     onTap: () {
+            //       showModalBottomSheet(
+            //         context: context,
+            //         builder: (context) {
+            //           return Column(
+            //             mainAxisSize: MainAxisSize.min,
+            //             children: widget.productUnit.productUnit
+            //                 .map<Widget>((data) {
+            //               return Column(
+            //                 children: [
+            //                   Padding(
+            //                     padding:
+            //                     const EdgeInsets.symmetric(
+            //                         vertical: 18.0,
+            //                         horizontal: 10),
+            //                     child: InkWell(
+            //                       onTap: () async {
+            //                         setState(() {
+            //                           unitData = data;
+            //                         });
+            //                         Navigator.of(context).pop();
+            //                       },
+            //                       child: Text(
+            //                         data,
+            //                         style: TextStyle(
+            //                             color: primaryColor),
+            //                       ),
+            //                     ),
+            //                   )
+            //                 ],
+            //               );
+            //             }).toList(),
+            //           );
+            //         },
+            //       );
+            //     },
+            //     title:
+            //     unitData == null ? firstUnitValue : unitData,
+            //   ),
+            // ),
           ]);
         },
       ),

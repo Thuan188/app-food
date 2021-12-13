@@ -1,9 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_app_order/helpers/colors.dart';
 import 'package:food_app_order/models/cart.dart';
 import 'package:food_app_order/providers/cart.dart';
-import 'package:food_app_order/screens/check_out/delivery_details.dart';
+import 'package:food_app_order/screens/check_out/delivery_address/delivery_details.dart';
 import 'package:food_app_order/screens/home/home.dart';
 import 'package:food_app_order/widgets/single_item.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +20,11 @@ class ReviewCart extends StatelessWidget {
       bottomNavigationBar: ListTile(
         title: Text("Total Amount"),
         subtitle: Text(
-          "\ ${cartProvider.getTotalPrice()}",
-          style: TextStyle(color: Colors.green[900]),
+          "\ ${cartProvider.getTotalPrice()}đ",
+          style: TextStyle(
+            color: textColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         trailing: Container(
           width: 170,
@@ -31,7 +35,7 @@ class ReviewCart extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
             onPressed: () {
-              if(cartProvider.getCartDataList.isEmpty){
+              if (cartProvider.getCartDataList.isEmpty) {
                 return Fluttertoast.showToast(msg: "No cart data found");
               }
               Navigator.of(context).push(
@@ -48,8 +52,7 @@ class ReviewCart extends StatelessWidget {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.of(context).pop();
           },
         ),
         backgroundColor: primaryColor,

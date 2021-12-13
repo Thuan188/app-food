@@ -55,7 +55,7 @@ class WishListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<ProductModel> get getWishList {
+  List<ProductModel> get getWishListDataList {
     return wishList;
   }
 

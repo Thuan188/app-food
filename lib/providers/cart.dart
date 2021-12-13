@@ -79,7 +79,7 @@ class CartProvider with ChangeNotifier {
 
   //total price
   getTotalPrice() {
-    double total = 0.0;
+    int total = 0;
     cartDataList.forEach((element) {
       total += element.cartPrice * element.cartQuantity;
 
