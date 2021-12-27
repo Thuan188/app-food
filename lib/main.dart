@@ -4,6 +4,7 @@ import 'package:food_app_order/auth/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_app_order/helpers/colors.dart';
 import 'package:food_app_order/providers/cart.dart';
+import 'package:food_app_order/providers/check_out.dart';
 import 'package:food_app_order/providers/product.dart';
 import 'package:food_app_order/providers/user.dart';
 import 'package:food_app_order/providers/wishlist.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<WishListProvider>(
           create: (context) => WishListProvider(),
+        ),
+        ChangeNotifierProvider<CheckoutProvider>(
+          create: (context) => CheckoutProvider(),
         ),
       ],
       child: MaterialApp(

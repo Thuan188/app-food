@@ -5,20 +5,16 @@ import 'package:food_app_order/models/product.dart';
 import 'package:food_app_order/screens/home/home.dart';
 import 'package:food_app_order/widgets/single_item.dart';
 
-enum SignInCharacter { lowToHigh, highToLow, alphabetically }
-
 class Search extends StatefulWidget {
   final List<ProductModel> search;
-  Search({Key key, this.search}) : super(key: key);
-
+  Search({this.search});
   @override
-  State<Search> createState() => _SearchState();
+  _SearchState createState() => _SearchState();
 }
 
 class _SearchState extends State<Search> {
-  SignInCharacter _character = SignInCharacter.alphabetically;
-
   String query = "";
+
 
   searchItem(String query) {
     List<ProductModel> searchFood = widget.search.where((element) {
@@ -30,66 +26,6 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     List<ProductModel> _searchItem = searchItem(query);
-    void bottomSheet() => showModalBottomSheet(
-        context: context,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20), topLeft: Radius.circular(20))),
-        builder: (context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: new Text(
-                  'Sort by',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              RadioListTile(
-                  value: SignInCharacter.lowToHigh,
-                  groupValue: _character,
-                  title: Text('Price Low to high'),
-                  onChanged: (val) {
-                    setState(() {
-                      _character = val;
-                    });
-                    Navigator.of(context).pop();
-                  }),
-              RadioListTile(
-                  value: SignInCharacter.highToLow,
-                  groupValue: _character,
-                  title: Text('Price High to low'),
-                  onChanged: (val) {
-                    setState(() {
-                      _character = val;
-                    });
-                    Navigator.of(context).pop();
-                  }),
-              RadioListTile(
-                  value: SignInCharacter.alphabetically,
-                  groupValue: _character,
-                  title: Text('Alphabetially'),
-                  onChanged: (val) {
-                    setState(() {
-                      _character = val;
-                    });
-                    Navigator.of(context).pop();
-                  }),
-              Container(
-                height: 50,
-                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                width: double.infinity,
-                child: MaterialButton(
-                  child: Text("Submit"),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  color: primaryColor,
-                  onPressed: () {},
-                ),
-              )
-            ],
-          );
-        });
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -101,21 +37,21 @@ class _SearchState extends State<Search> {
             Navigator.of(context).pop();
           },
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () {
+              },
+              icon: Icon(Icons.sort),
+            ),
+          ),
+        ],
+        backgroundColor: primaryColor,
         title: Text(
           "Search",
           style: TextStyle(color: textColor),
         ),
-        backgroundColor: primaryColor,
-        actions: [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: IconButton(
-                onPressed: () {
-                  bottomSheet();
-                },
-                icon: Icon(Icons.sort, color: textColor)),
-          )
-        ],
       ),
       body: ListView(
         children: [
@@ -124,25 +60,23 @@ class _SearchState extends State<Search> {
           ),
           Container(
             height: 52,
-            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            margin: EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
               onChanged: (value) {
                 setState(() {
-                  print(value);
                   query = value;
                 });
               },
               decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none),
-                  fillColor: Color(0xf131010),
-                  filled: true,
-                  hintText: "Search for items:",
-                  suffixIcon: Icon(
-                    Icons.search,
-                    color: primaryColor,
-                  )),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
+                fillColor: Color(0xffc2c2c2),
+                filled: true,
+                hintText: "Search for items in the store",
+                suffixIcon: Icon(Icons.search),
+              ),
             ),
           ),
           SizedBox(

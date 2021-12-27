@@ -8,10 +8,10 @@ class ProductProvider with ChangeNotifier {
   List<ProductModel> dairyProductList = [];
   ProductModel productModel;
 
-  List<ProductModel>search = [];
+  List<ProductModel> search = [];
 
-  productModels(QueryDocumentSnapshot element){
-    productModel =ProductModel(
+  productModels(QueryDocumentSnapshot element) {
+    productModel = ProductModel(
       productImage: element.get("productImage"),
       productName: element.get("productName"),
       productPrice: element.get("productPrice"),
@@ -19,7 +19,6 @@ class ProductProvider with ChangeNotifier {
       productUnit: element.get("productUnit"),
     );
     search.add(productModel);
-
   }
 
 //vegetable product
@@ -80,7 +79,7 @@ class ProductProvider with ChangeNotifier {
   }
 
   //search
-List<ProductModel> get getAllProductSearch{
+  List<ProductModel> get getAllProductSearch {
     return search;
-}
+  }
 }

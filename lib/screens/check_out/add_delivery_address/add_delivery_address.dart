@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_app_order/helpers/colors.dart';
+import 'package:food_app_order/providers/check_out.dart';
+import 'package:food_app_order/screens/google_map/google_map.dart';
 import 'package:food_app_order/widgets/custom_text_field.dart';
+import 'package:provider/provider.dart';
 
 class AddDeliveryAddress extends StatefulWidget {
   @override
@@ -15,8 +18,11 @@ enum AddressTypes {
 
 class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
   var myType = AddressTypes.Home;
+
   @override
   Widget build(BuildContext context) {
+    var addressType = AddressTypes.Home == "";
+    CheckoutProvider checkoutProvider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -37,16 +43,22 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
       bottomNavigationBar: Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         height: 50,
-        child: MaterialButton(
-          onPressed: () {},
-          child: Text(
-            "ADD ADDRESS",
-            style: TextStyle(color: textColor),
-          ),
-          color: primaryColor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        ),
+        child: checkoutProvider.isLoading == false
+            ? MaterialButton(
+                onPressed: () {
+                  checkoutProvider.validator(context, myType);
+                },
+                child: Text(
+                  "ADD ADDRESS",
+                  style: TextStyle(color: textColor),
+                ),
+                color: primaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -54,33 +66,45 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
           children: [
             CustomTextField(
               labText: "First Name",
+              controller: checkoutProvider.firstName,
             ),
             CustomTextField(
               labText: "Last Name",
+              controller: checkoutProvider.lastName,
             ),
             CustomTextField(
               labText: "Mobile phone",
+              controller: checkoutProvider.mobilePhone,
             ),
             CustomTextField(
               labText: "Street",
+              controller: checkoutProvider.street,
             ),
             CustomTextField(
               labText: "Village",
+              controller: checkoutProvider.village,
             ),
             CustomTextField(
               labText: "Ward",
+              controller: checkoutProvider.ward,
             ),
             CustomTextField(
               labText: "District",
+              controller: checkoutProvider.district,
             ),
             CustomTextField(
               labText: "City",
+              controller: checkoutProvider.city,
             ),
             CustomTextField(
               labText: "Country",
+              controller: checkoutProvider.country,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CustomGoogleMap()));
+              },
               child: Container(
                 height: 50,
                 width: double.infinity,
@@ -88,10 +112,12 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Set Location",
-                      style: TextStyle(fontSize: 15),
-                    )
+                    checkoutProvider.setLocation == null
+                        ? Text(
+                            "Set Location",
+                            style: TextStyle(fontSize: 15),
+                          )
+                        : Text('Done !')
                   ],
                 ),
               ),

@@ -32,8 +32,8 @@ class _DrawerSideState extends State<DrawerSide> {
   @override
   Widget build(BuildContext context) {
     var userData = widget.userProvider.currentUserData;
-    userData.userImage =
-    'https://lh3.googleusercontent.com/a-/AOh14GjAOHeQ41vUI298cczrt92IbBcXaSCXQqOd5w29bw=s360-p-rw-no';
+    // userData.userImage =
+    // 'https://meowtel.com/img/assets/home/hero-image-cat-3.png';
     return Drawer(
       child: Container(
         width: 100,
@@ -49,7 +49,7 @@ class _DrawerSideState extends State<DrawerSide> {
                       radius: 45,
                       child: ClipOval(
                           child: Image.network(
-                            userData.userImage ?? '',
+                           userData.userImage ?? '',
                             fit: BoxFit.cover,
                             width: 85.0,
                             height: 85.0,
@@ -74,21 +74,21 @@ class _DrawerSideState extends State<DrawerSide> {
               ),
             ),
             listTile(icon: Icons.home_outlined, title: "Home", onTap: () {
-              Navigator.of(context).pushReplacement(
+              Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => HomeScreen()));
             }),
             listTile(
                 icon: Icons.shopping_bag_outlined,
                 title: "Cart",
                 onTap: () {
-                  Navigator.of(context).pushReplacement(
+                  Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => ReviewCart()));
                 }),
             listTile(
                 icon: Icons.person_outline,
                 title: "My Profile",
                 onTap: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => MyProfile(
                             userProvider: widget.userProvider,
                           )));

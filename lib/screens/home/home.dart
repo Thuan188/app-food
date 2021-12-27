@@ -22,10 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    ProductProvider productProvider = Provider.of(context, listen: false);
-    productProvider.fetchVegetableProductData();
-    productProvider.fetchFreshProductData();
-    productProvider.fetchDairyProductData();
+    ProductProvider initproductProvider = Provider.of(context, listen: false);
+    initproductProvider.fetchVegetableProductData();
+    initproductProvider.fetchFreshProductData();
+    initproductProvider.fetchDairyProductData();
 
     super.initState();
   }
@@ -36,71 +36,74 @@ class _HomeScreenState extends State<HomeScreen> {
     UserProvider userProvider = Provider.of(context);
     userProvider.getUserData();
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      drawer: DrawerSide(userProvider: userProvider,),
+      drawer: DrawerSide(
+        userProvider: userProvider,
+      ),
       appBar: AppBar(
+        backgroundColor: primaryColor,
         iconTheme: IconThemeData(color: textColor),
         title: Text(
           'Home',
-          style: TextStyle(color: textColor),
+          style: TextStyle(color: textColor, fontSize: 17),
         ),
         actions: [
           CircleAvatar(
             radius: 15,
-            backgroundColor: scaffoldBackgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Search(
-                            search: productProvider.getAllProductSearch,
-                          )));
-                },
-                icon: Icon(
-                  Icons.search,
-                  size: 22,
-                ),
+            backgroundColor: Color(0xffd6d382),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        Search(search: productProvider.getAllProductSearch),
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.search,
+                size: 17,
                 color: textColor,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: GestureDetector(
               onTap: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ReviewCart()));
+                  MaterialPageRoute(
+                    builder: (context) => ReviewCart(),
+                  ),
+                );
               },
               child: CircleAvatar(
+                backgroundColor: Color(0xffd6d382),
                 radius: 15,
-                backgroundColor: scaffoldBackgroundColor,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 2),
-                  child: Icon(
-                    Icons.shopping_cart_outlined,
-                    color: textColor,
-                  ),
+                child: Icon(
+                  Icons.shopping_cart,
+                  size: 17,
+                  color: textColor,
                 ),
               ),
             ),
-          )
+          ),
         ],
-        backgroundColor: Colors.green,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10.0),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: ListView(
           children: [
             Container(
               height: 150,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                          'https://previews.123rf.com/images/vaaseenaa/vaaseenaa1802/vaaseenaa180200358/94718650-healthy-vegan-food-concept-fruits-vegetables-background-vegetable-products-cereals-and-beans-for-a-v.jpg')),
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(10)),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
+                ),
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Row(
                 children: [
                   Expanded(
@@ -115,40 +118,52 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 50,
                               width: 100,
                               decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(50),
-                                      bottomLeft: Radius.circular(50))),
+                                color: Color(0xffd1ad17),
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(50),
+                                  bottomLeft: Radius.circular(50),
+                                ),
+                              ),
                               child: Center(
                                 child: Text(
-                                  'Vegetable',
+                                  'Vangle',
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      shadows: [
-                                        BoxShadow(
-                                            color: Colors.green,
-                                            blurRadius: 10,
-                                            offset: Offset(3, 3))
-                                      ]),
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    shadows: [
+                                      BoxShadow(
+                                          color: Colors.green,
+                                          blurRadius: 10,
+                                          offset: Offset(3, 3))
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           Text(
-                            "20% Sale Off",
-                            style:
-                                TextStyle(fontSize: 30, color: Colors.red[900]),
-                          ),
-                          Text(
-                            "On all vegatables",
+                            '15% Off',
                             style: TextStyle(
-                                fontSize: 15, color: Colors.redAccent),
-                          )
+                                fontSize: 40,
+                                color: Colors.green[100],
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text(
+                              'On all vegetables products',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Expanded(child: Container())
+                  Expanded(
+                    child: Container(),
+                  ),
                 ],
               ),
             ),
@@ -163,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 10,
             ),
-            itemDairyProducts(context)
+            itemDairyProducts(context),
           ],
         ),
       ),

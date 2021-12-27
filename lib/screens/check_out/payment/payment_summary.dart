@@ -2,22 +2,54 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:food_app_order/helpers/colors.dart';
+import 'package:food_app_order/models/delivery_address.dart';
+import 'package:food_app_order/providers/cart.dart';
+import 'package:food_app_order/providers/check_out.dart';
+import 'package:food_app_order/providers/product.dart';
+import 'package:food_app_order/screens/check_out/delivery_address/single_delivery.dart';
+import 'package:food_app_order/screens/check_out/payment/my_google_pay.dart';
 import 'package:food_app_order/screens/check_out/payment/order_item.dart';
+import 'package:food_app_order/screens/review_cart/review_cart.dart';
+import 'package:food_app_order/widgets/custom_expansion_tile.dart';
+import 'package:provider/provider.dart';
 
 class PaymentSummary extends StatefulWidget {
+  final DeliveryAddressModel deliveryAddressList;
+
+  PaymentSummary({this.deliveryAddressList});
+
   @override
   _PaymentSummaryState createState() => _PaymentSummaryState();
 }
 
 enum AddressTypes {
   Home,
+  Work,
   OnlinePayment,
 }
 
 class _PaymentSummaryState extends State<PaymentSummary> {
   var myType = AddressTypes.Home;
+  Color _textColor = textColor;
+
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of(context);
+    cartProvider.getCartData();
+
+    double discount = 15;
+    double shippingCharge = 15000;
+    double total;
+    double discountValue;
+    int totalPrice = cartProvider.getTotalPrice();
+    if (totalPrice > 200000) {
+      discountValue = (totalPrice * discount) / 100;
+
+      total = totalPrice - discountValue;
+      //print(total);
+    }
+
+   // print(total);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -36,20 +68,29 @@ class _PaymentSummaryState extends State<PaymentSummary> {
         backgroundColor: primaryColor,
       ),
       bottomNavigationBar: ListTile(
+        title: Text('Total Amount'),
+        subtitle: Text(
+          '\ ${total.toInt() + shippingCharge.toInt() ?? totalPrice}đ',
+          style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+        ),
         trailing: Container(
           width: 160,
           child: MaterialButton(
             color: primaryColor,
-            onPressed: () {},
+            onPressed: () {
+              myType == AddressTypes.OnlinePayment
+                  ? Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MyGooglePay(
+                            total: total,
+                          )))
+                  : myType == AddressTypes.Home
+                      ? Container()
+                      : Container();
+            },
             child: Text('Place Order'),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           ),
-        ),
-        title: Text('Total Amount'),
-        subtitle: Text(
-          '\150000đ',
-          style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(
@@ -58,24 +99,44 @@ class _PaymentSummaryState extends State<PaymentSummary> {
           itemCount: 1,
           itemBuilder: (context, index) {
             return Column(children: [
-              ListTile(
-                title: Text('First & Last Name'),
-                subtitle:
-                    Text("Phu Hoa 2, Hoa Nhon, Hoa Vang, Da Nang, Viet Nam"),
+              SingleDeliveryItem(
+                address:
+                    "${widget.deliveryAddressList.street}, ${widget.deliveryAddressList.village}, ${widget.deliveryAddressList.ward}, ${widget.deliveryAddressList.district}, ${widget.deliveryAddressList.city}, ${widget.deliveryAddressList.country} ,",
+                title:
+                    "${widget.deliveryAddressList.firstName} ${widget.deliveryAddressList.lastName}",
+                addressType: widget.deliveryAddressList.addressType ==
+                        "AddressTypes.Other"
+                    ? "Other"
+                    : widget.deliveryAddressList.addressType ==
+                            "AddressTypes.Home"
+                        ? "Home"
+                        : "Work",
+                number: widget.deliveryAddressList.mobilePhone,
               ),
               Divider(),
-              Theme(
-                data: Theme.of(context).copyWith(backgroundColor: primaryColor),
-                child: ExpansionTile(
-                  title: Text('Order Item'),
-                  children: [
-                    OrderItem(),
-                    OrderItem(),
-                    OrderItem(),
-                    OrderItem(),
-                    OrderItem(),
-                  ],
+              ExpansionTile(
+                title: Text(
+                  'Order Items ${cartProvider.getCartDataList.length}',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: _textColor,
+                  ),
                 ),
+                children: cartProvider.getCartDataList.map((e) {
+                  return OrderItem(e: e);
+                }).toList(),
+                iconColor: Colors.green,
+                collapsedIconColor: Colors.black,
+                onExpansionChanged: (expanded) {
+                  setState(() {
+                    if (expanded) {
+                      _textColor = primaryColor;
+                    } else {
+                      _textColor = textColor;
+                    }
+                  });
+                },
               ),
               Divider(),
               ListTile(
@@ -87,7 +148,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   ),
                 ),
                 trailing: Text(
-                  "130000đ",
+                  "${totalPrice.toInt()}đ",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -102,7 +163,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   ),
                 ),
                 trailing: Text(
-                  "15000đ",
+                  "${shippingCharge}đ",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -117,7 +178,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   ),
                 ),
                 trailing: Text(
-                  "15000đ",
+                  "${discountValue.toInt()}đ",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -134,6 +195,21 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 title: Text("Home"),
                 secondary: Icon(
                   Icons.home,
+                  color: primaryColor,
+                ),
+                onChanged: (AddressTypes value) {
+                  setState(() {
+                    myType = value;
+                  });
+                },
+              ),
+              RadioListTile(
+                value: AddressTypes.Work,
+                groupValue: myType,
+                activeColor: primaryColor,
+                title: Text("Work"),
+                secondary: Icon(
+                  Icons.work,
                   color: primaryColor,
                 ),
                 onChanged: (AddressTypes value) {

@@ -4,18 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:food_app_order/models/product.dart';
 
 class WishListProvider with ChangeNotifier {
-  void addWishListData({
+  addWishListData({
     String wishListId,
-    String wishListImage,
     String wishListName,
-    int wishListPrice,
+    var wishListPrice,
+    String wishListImage,
     int wishListQuantity,
-    var wishListUnit,
-  }) async {
+  }) {
     FirebaseFirestore.instance
         .collection("WishList")
         .doc(FirebaseAuth.instance.currentUser.uid)
-        .collection("YourWish")
+        .collection("YourWishList")
         .doc(wishListId)
         .set({
       "wishListId": wishListId,
@@ -23,48 +22,46 @@ class WishListProvider with ChangeNotifier {
       "wishListImage": wishListImage,
       "wishListPrice": wishListPrice,
       "wishListQuantity": wishListQuantity,
-      "wishListUnit":wishListUnit,
-      "wishList": true
-      
+      "wishList": true,
     });
   }
 
+///// Get WishList Data ///////
   List<ProductModel> wishList = [];
 
-  //get data
-  getWishListData() async {
+  getWishtListData() async {
     List<ProductModel> newList = [];
     QuerySnapshot value = await FirebaseFirestore.instance
         .collection("WishList")
         .doc(FirebaseAuth.instance.currentUser.uid)
-        .collection("YourWish")
+        .collection("YourWishList")
         .get();
-    value.docs.forEach((element) {
-      ProductModel productModel = ProductModel(
+    value.docs.forEach(
+      (element) {
+        ProductModel productModel = ProductModel(
           productId: element.get("wishListId"),
-          productPrice: element.get("wishListPrice"),
           productImage: element.get("wishListImage"),
           productName: element.get("wishListName"),
-          productUnit: element.get("wishListUnit"),
-          productQuantity: element.get(("wishListQuantity"),
-
-          ));
-      newList.add(productModel);
-    });
+          productPrice: element.get("wishListPrice"),
+          productQuantity: element.get("wishListQuantity"),
+        );
+        newList.add(productModel);
+      },
+    );
     wishList = newList;
     notifyListeners();
   }
 
-  List<ProductModel> get getWishListDataList {
+  List<ProductModel> get getWishList {
     return wishList;
   }
 
-  //delete wishlist
-  deleteWishList(wishListId) {
+////////// Delete WishList /////
+  deleteWishtList(wishListId) {
     FirebaseFirestore.instance
         .collection("WishList")
         .doc(FirebaseAuth.instance.currentUser.uid)
-        .collection("YourWish")
+        .collection("YourWishList")
         .doc(wishListId)
         .delete();
   }

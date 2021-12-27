@@ -43,6 +43,7 @@ dependencies:
   location: any
   google_maps_flutter: any
   pay: ^1.0.6
+  velocity_x: ^3.0.0
 
   cached_network_image: ^3.2.0
 
