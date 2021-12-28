@@ -16,11 +16,7 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-  Widget listTile({
-    IconData icon,
-    String title,
-    Function onTap,
-  }) {
+  Widget listTile({IconData icon, String title, Function onTap}) {
     return Column(
       children: [
         Divider(
@@ -41,8 +37,8 @@ class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     var userData = widget.userProvider.currentUserData;
-    userData.userImage =
-        'https://lh3.googleusercontent.com/a-/AOh14GjAOHeQ41vUI298cczrt92IbBcXaSCXQqOd5w29bw=s360-p-rw-no';
+    //userData.userImage =
+    //  'https://lh3.googleusercontent.com/a-/AOh14GjAOHeQ41vUI298cczrt92IbBcXaSCXQqOd5w29bw=s360-p-rw-no';
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -60,89 +56,92 @@ class _MyProfileState extends State<MyProfile> {
       ),
       body: Stack(
         children: [
-          Column(
-            children: [
-              Container(
-                height: 100,
-                color: primaryColor,
-              ),
-              Container(
-                height: 562,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                decoration: BoxDecoration(
-                    color: scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30))),
-                child: ListView(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                          width: 300,
-                          height: 100,
-                          padding: EdgeInsets.only(left: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    userData.userName,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(userData.userEmail)
-                                ],
-                              ),
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundColor: primaryColor,
-                                child: Icon(
-                                  Icons.edit_outlined,
-                                  color: Colors.redAccent,
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    listTile(
-                        icon: Icons.shopping_cart_outlined,
-                        title: "My Orders",
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ReviewCart()));
-                        }),
-                    listTile(
-                        icon: Icons.location_on_outlined,
-                        title: "My Address",
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => DeliveryDetails()));
-                        }),
-                    listTile(
-                        icon: Icons.person_outline, title: "Refer A Friends"),
-                    listTile(
-                        icon: Icons.file_copy_outlined,
-                        title: "Terms & Conditions"),
-                    listTile(icon: Icons.add_chart, title: "About"),
-                    listTile(icon: Icons.exit_to_app_outlined, title: "Log out")
-                  ],
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: 42,
+                  color: primaryColor,
                 ),
-              )
-            ],
+                Container(
+                  height: 562,
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  decoration: BoxDecoration(
+                      color: scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30))),
+                  child: ListView(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: 300,
+                            height: 100,
+                            //padding: EdgeInsets.only(left: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      userData.userName,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: textColor,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(userData.userEmail)
+                                  ],
+                                ),
+                                CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: primaryColor,
+                                  child: Icon(
+                                    Icons.edit_outlined,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      listTile(
+                          icon: Icons.shopping_cart_outlined,
+                          title: "My Orders",
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ReviewCart()));
+                          }),
+                      listTile(
+                          icon: Icons.location_on_outlined,
+                          title: "My Address",
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => DeliveryDetails()));
+                          }),
+                      listTile(
+                          icon: Icons.person_outline, title: "Refer A Friends"),
+                      listTile(
+                          icon: Icons.file_copy_outlined,
+                          title: "Terms & Conditions"),
+                      listTile(icon: Icons.add_chart, title: "About"),
+                      listTile(
+                          icon: Icons.exit_to_app_outlined, title: "Log out")
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
           Padding(
               padding: const EdgeInsets.only(top: 40, left: 30),

@@ -38,7 +38,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     cartProvider.getCartData();
 
     double discount = 15;
-    double shippingCharge = 15000;
+    int shippingCharge = 15000;
     double total;
     double discountValue;
     int totalPrice = cartProvider.getTotalPrice();
@@ -87,7 +87,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                       ? Container()
                       : Container();
             },
-            child: Text('Place Order'),
+            child: Text('Pay'),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           ),

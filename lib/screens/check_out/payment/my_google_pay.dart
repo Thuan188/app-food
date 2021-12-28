@@ -49,6 +49,14 @@ class _MyGooglePayState extends State<MyGooglePay> {
         ),
         backgroundColor: primaryColor,
       ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/all_product.png')
+          ],
+        ),
+      ),
       bottomNavigationBar: ListTile(
         title: Text(
           'Total amount you pay ',

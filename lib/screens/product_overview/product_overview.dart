@@ -155,67 +155,69 @@ class _ProductOverviewState extends State<ProductOverview> {
             flex: 2,
             child: Container(
               width: double.infinity,
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text(widget.productName),
-                    subtitle: Text("\ ${widget.productPrice}đ"),
-                  ),
-                  Container(
-                      height: 250,
-                      padding: EdgeInsets.all(40),
-                      child: Image.network(
-                        widget.productImage ?? "",
-                      )),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    width: double.infinity,
-                    child: Text(
-                      "Available Options",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: textColor,
-                        fontWeight: FontWeight.w600,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(widget.productName),
+                      subtitle: Text("\ ${widget.productPrice}đ"),
+                    ),
+                    Container(
+                        height: 250,
+                        padding: EdgeInsets.all(40),
+                        child: Image.network(
+                          widget.productImage ?? "",
+                        )),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      width: double.infinity,
+                      child: Text(
+                        "Available Options",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 3,
-                              backgroundColor: Colors.green[700],
-                            ),
-                            Radio(
-                              value: SinginCharacter.fill,
-                              groupValue: _character,
-                              activeColor: Colors.green[700],
-                              onChanged: (value) {
-                                setState(() {
-                                  _character = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                        Text("\ ${widget.productPrice}đ "),
-                        Count(
-                          productId: widget.productId,
-                          productImage: widget.productImage,
-                          productName: widget.productName,
-                          productPrice: widget.productPrice,
-                          productUnit: '500 Gram',
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 3,
+                                backgroundColor: Colors.green[700],
+                              ),
+                              Radio(
+                                value: SinginCharacter.fill,
+                                groupValue: _character,
+                                activeColor: Colors.green[700],
+                                onChanged: (value) {
+                                  setState(() {
+                                    _character = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          Text("\ ${widget.productPrice}đ "),
+                          Count(
+                            productId: widget.productId,
+                            productImage: widget.productImage,
+                            productName: widget.productName,
+                            productPrice: widget.productPrice,
+                            productUnit: '500 Gram',
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
