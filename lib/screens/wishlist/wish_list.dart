@@ -68,30 +68,34 @@ class _WishListState extends State<WishList> {
           style: TextStyle(color: textColor),
         ),
       ),
-      body: ListView.builder(
-        itemCount: wishListProvider.getWishList.length,
-        itemBuilder: (context, index) {
-          ProductModel data = wishListProvider.getWishList[index];
-          return Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              SingleItem(
-                isBool: true,
-                productImage: data.productImage,
-                productName: data.productName,
-                productPrice: data.productPrice,
-                productId: data.productId,
-                productQuantity: data.productQuantity,
-                onDelete: () {
-                  showAlertDialog(context,data);
-                },
-              ),
-            ],
-          );
-        },
-      ),
+      body: wishListProvider.getWishList.isEmpty
+          ? Center(
+              child: Text('No data'),
+            )
+          : ListView.builder(
+              itemCount: wishListProvider.getWishList.length,
+              itemBuilder: (context, index) {
+                ProductModel data = wishListProvider.getWishList[index];
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SingleItem(
+                      isBool: true,
+                      productImage: data.productImage,
+                      productName: data.productName,
+                      productPrice: data.productPrice,
+                      productId: data.productId,
+                      productQuantity: data.productQuantity,
+                      onDelete: () {
+                        showAlertDialog(context, data);
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
     );
   }
 }

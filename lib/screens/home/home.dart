@@ -219,6 +219,11 @@ class _HomeScreenState extends State<HomeScreen> {
             children: productProvider.getFreshDatalist
                 .map(
                   (freshData) => SignalProduct(
+                    productId: freshData.productId,
+                    productPrice: freshData.productPrice,
+                    productName: freshData.productName,
+                    productImage: freshData.productImage,
+                    productUnit: freshData.productUnit,
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ProductOverview(
@@ -228,11 +233,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: freshData.productImage,
                               )));
                     },
-                    productId: freshData.productId,
-                    productPrice: freshData.productPrice,
-                    productName: freshData.productName,
-                    productImage: freshData.productImage,
-                    productUnit: freshData.productUnit,
                   ),
                 )
                 .toList(),
@@ -276,6 +276,11 @@ class _HomeScreenState extends State<HomeScreen> {
               children: productProvider.getDairyDatalist
                   .map(
                     (dairyData) => SignalProduct(
+                      productId: dairyData.productId,
+                      productPrice: dairyData.productPrice,
+                      productName: dairyData.productName,
+                      productImage: dairyData.productImage,
+                      productUnit: dairyData.productUnit,
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => ProductOverview(
@@ -285,11 +290,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   productImage: dairyData.productImage,
                                 )));
                       },
-                      productId: dairyData.productId,
-                      productPrice: dairyData.productPrice,
-                      productName: dairyData.productName,
-                      productImage: dairyData.productImage,
-                      productUnit: dairyData.productUnit,
                     ),
                   )
                   .toList()),
@@ -332,6 +332,11 @@ class _HomeScreenState extends State<HomeScreen> {
             children: productProvider.getVegetableDatalist
                 .map(
                   (vegetableData) => SignalProduct(
+                    productId: vegetableData.productId,
+                    productPrice: vegetableData.productPrice,
+                    productName: vegetableData.productName,
+                    productImage: vegetableData.productImage,
+                    productUnit: vegetableData.productUnit,
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ProductOverview(
@@ -341,11 +346,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: vegetableData.productImage,
                               )));
                     },
-                    productId: vegetableData.productId,
-                    productPrice: vegetableData.productPrice,
-                    productName: vegetableData.productName,
-                    productImage: vegetableData.productImage,
-                    productUnit: vegetableData.productUnit,
                   ),
                 )
                 .toList(),

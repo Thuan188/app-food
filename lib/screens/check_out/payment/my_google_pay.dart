@@ -15,13 +15,6 @@ class MyGooglePay extends StatefulWidget {
 }
 
 class _MyGooglePayState extends State<MyGooglePay> {
-  // var _paymentItems = [
-  //   PaymentItem(
-  //     label: 'Total',
-  //     amount: '99.99',
-  //     status: PaymentItemStatus.final_price,
-  //   )
-  // ];
   final _paymentItems = <PaymentItem>[];
 
   void onGooglePayResult(paymentResult) {
@@ -53,7 +46,10 @@ class _MyGooglePayState extends State<MyGooglePay> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/all_product.png')
+            Container(
+                height: 600,
+                child: Image.asset('assets/all_product.png',
+                    height: MediaQuery.of(context).size.height)),
           ],
         ),
       ),
@@ -68,12 +64,14 @@ class _MyGooglePayState extends State<MyGooglePay> {
         trailing: Container(
           width: 160,
           child: MaterialButton(
+            animationDuration: Duration(seconds: 3),
             color: Colors.black,
             onPressed: () {
-
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => PaymentSucess()));
             },
             child: GooglePayButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => PaymentSucess()));
               },
@@ -90,69 +88,17 @@ class _MyGooglePayState extends State<MyGooglePay> {
               style: GooglePayButtonStyle.black,
               type: GooglePayButtonType.pay,
               onPaymentResult: onGooglePayResult,
-              loadingIndicator: Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: primaryColor,
-                ),
-              ),
+              // loadingIndicator: Center(
+              //   child: CircularProgressIndicator(
+              //     backgroundColor: primaryColor,
+              //   ),
+              // ),
             ),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           ),
         ),
       ),
-      // body: Row(
-      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //   crossAxisAlignment: CrossAxisAlignment.end,
-      //   children: [
-      //     SizedBox(
-      //       height: 800,
-      //     ),
-      //     Text(
-      //       'Total: ${widget.total.toInt()}đ',
-      //       style: TextStyle(
-      //         fontWeight: FontWeight.bold,
-      //       ),
-      //     ),
-      //     SizedBox(
-      //       width: 15,
-      //     ),
-      //     Row(
-      //       children: [
-      //
-      //         Row(
-      //           children: [
-      //             Text('Payment Options: '),
-      //             MaterialButton(
-      //               color: textColor,
-      //               shape: RoundedRectangleBorder(
-      //                   borderRadius: BorderRadius.circular(30)),
-      //               onPressed: () {},
-      //               child: GooglePayButton(
-      //                 width: 100,
-      //                 paymentConfigurationAsset:
-      //                     'sample_payment_configuration.json',
-      //                 paymentItems: [
-      //                   PaymentItem(
-      //                     label: 'Total',
-      //                     amount: '${widget.total.toString()}',
-      //                     status: PaymentItemStatus.final_price,
-      //                   )
-      //                 ],
-      //                 style: GooglePayButtonStyle.black,
-      //                 type: GooglePayButtonType.pay,
-      //                 onPaymentResult: onGooglePayResult,
-      //                 loadingIndicator: const Center(
-      //                   child: CircularProgressIndicator(),
-      //                 ),
-      //               ),
-      //             ),
-      //           ],
-      //         )
-      //       ],
-      //     )
-      //   ],
-      // ),
     );
   }
 }

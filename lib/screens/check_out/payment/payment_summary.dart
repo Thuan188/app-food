@@ -49,7 +49,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
       //print(total);
     }
 
-   // print(total);
+    // print(total);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

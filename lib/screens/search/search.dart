@@ -53,47 +53,49 @@ class _SearchState extends State<Search> {
           style: TextStyle(color: textColor),
         ),
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            title: Text("Items"),
-          ),
-          Container(
-            height: 52,
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-              onChanged: (value) {
-                setState(() {
-                  query = value;
-                });
-              },
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
-                ),
-                fillColor: Color(0xffc2c2c2),
-                filled: true,
-                hintText: "Search for items in the store",
-                suffixIcon: Icon(Icons.search),
+      body:  ListView(
+            children: [
+              ListTile(
+                title: Text("Items"),
               ),
-            ),
+              Container(
+                height: 52,
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: TextField(
+                  cursorColor: primaryColor,
+                  onChanged: (value) {
+                    setState(() {
+                      query = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none,
+                    ),
+                    fillColor: Color(0xffc2c2c2),
+                    filled: true,
+                    hintText: "Search for items in the store",
+                    suffixIcon: Icon(Icons.search,color: primaryColor,),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Column(
+
+                children: _searchItem.map((data) {
+                  return SingleItem(
+                    isBool: false,
+                    productImage: data.productImage,
+                    productName: data.productName,
+                    productPrice: data.productPrice,
+                  );
+                }).toList(),
+              )
+            ],
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Column(
-            children: _searchItem.map((data) {
-              return SingleItem(
-                isBool: false,
-                productImage: data.productImage,
-                productName: data.productName,
-                productPrice: data.productPrice,
-              );
-            }).toList(),
-          )
-        ],
-      ),
     );
   }
 }

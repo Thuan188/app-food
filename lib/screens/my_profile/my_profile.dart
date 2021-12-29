@@ -70,17 +70,17 @@ class _MyProfileState extends State<MyProfile> {
                   decoration: BoxDecoration(
                       color: scaffoldBackgroundColor,
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30))),
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40))),
                   child: ListView(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
                             width: 300,
                             height: 100,
-                            //padding: EdgeInsets.only(left: 20),
+                            padding: EdgeInsets.only(left: 50),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -144,7 +144,7 @@ class _MyProfileState extends State<MyProfile> {
             ),
           ),
           Padding(
-              padding: const EdgeInsets.only(top: 40, left: 30),
+              padding: const EdgeInsets.only(top: 40),
               child: CircleAvatar(
                 radius: 45,
                 child: ClipOval(
