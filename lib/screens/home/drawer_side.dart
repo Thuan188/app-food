@@ -36,7 +36,6 @@ class _DrawerSideState extends State<DrawerSide> {
     // 'https://meowtel.com/img/assets/home/hero-image-cat-3.png';
     return Drawer(
       child: Container(
-        width: 105,
         color: primaryColor,
         child: ListView(
           children: [
