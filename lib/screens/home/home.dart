@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: CircleAvatar(
                 backgroundColor: Color(0xffd6d382),
-                radius: 15,
+                radius: 16,
                 child: Icon(
                   Icons.shopping_cart,
                   size: 17,

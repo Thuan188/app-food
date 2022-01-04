@@ -9,7 +9,6 @@ import 'package:food_app_order/providers/product.dart';
 import 'package:food_app_order/providers/user.dart';
 import 'package:food_app_order/providers/wishlist.dart';
 import 'package:food_app_order/screens/home/home.dart';
-import 'package:food_app_order/screens/search/search.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
