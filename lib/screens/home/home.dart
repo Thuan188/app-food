@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
         iconTheme: IconThemeData(color: textColor),
         title: Text(
           'Home',
-          style: TextStyle(color: textColor, fontSize: 17),
+          style: TextStyle(color: textColor, fontSize: 18),
         ),
         actions: [
           CircleAvatar(
