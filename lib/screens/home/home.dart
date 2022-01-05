@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ProductProvider productProvider;
-  //tao productprovider
+  //tao product provider
 
   @override
   void initState() {
