@@ -61,9 +61,7 @@ class _SingleItemState extends State<SingleItem> {
               child: Container(
             height: 100,
             child: Column(
-              mainAxisAlignment: widget.isBool == false
-                  ? MainAxisAlignment.spaceAround
-                  : MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: widget.isBool == false ? MainAxisAlignment.spaceAround : MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
@@ -71,19 +69,13 @@ class _SingleItemState extends State<SingleItem> {
                   children: [
                     Text(
                       widget.productName,
-                      style: TextStyle(
-                          color: textColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                      style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         "${widget.productPrice}đ",
-                        style: TextStyle(
-                            color: Colors.black45,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.black45, fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                     )
                   ],
@@ -138,9 +130,7 @@ class _SingleItemState extends State<SingleItem> {
                             children: [
                               Expanded(
                                   child: Center(
-                                child: Text("500g",
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 15)),
+                                child: Text("500g", style: TextStyle(color: Colors.grey, fontSize: 15)),
                               )),
                               Icon(
                                 Icons.arrow_drop_down,
@@ -168,7 +158,7 @@ class _SingleItemState extends State<SingleItem> {
                     productPrice: widget.productPrice,
                     productName: widget.productName,
                     productQuantity: widget.productQuantity,
-              productUnit: widget.productUnit,
+                    productUnit: widget.productUnit,
                   )
                 : Padding(
                     padding: const EdgeInsets.only(top: 10.0),
@@ -226,8 +216,7 @@ class _SingleItemState extends State<SingleItem> {
                                       ),
                                       Text(
                                         "$count",
-                                        style: TextStyle(
-                                            color: primaryColor, fontSize: 20),
+                                        style: TextStyle(color: primaryColor, fontSize: 20),
                                       ),
                                       InkWell(
                                         onTap: () {

@@ -10,7 +10,7 @@ class SignalProduct extends StatefulWidget {
   final int productPrice;
   final Function onTap;
   final String productId;
-  final  productUnit;
+  final productUnit;
 
   SignalProduct({
     Key key,
@@ -63,79 +63,73 @@ class _SignalProductState extends State<SignalProduct> {
                   ),
                 ),
                 Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.productName,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text(
-                        ' ${widget.productPrice}đ/${unitData == null ? firstUnitValue : unitData}',
-                        style: TextStyle(fontWeight: FontWeight.normal),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ProductUnit(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: widget.productUnit
-                                          .map<Widget>((data) {
-                                        return Column(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 18.0,
-                                                      horizontal: 10),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  setState(() {
-                                                    unitData = data;
-                                                  });
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: Text(
-                                                  data,
-                                                  style: TextStyle(
-                                                      color: primaryColor),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.productName,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        Text(
+                          ' ${widget.productPrice}đ/${unitData == null ? firstUnitValue : unitData}',
+                          style: TextStyle(fontWeight: FontWeight.normal),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ProductUnit(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: widget.productUnit.map<Widget>((data) {
+                                          return Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    setState(() {
+                                                      unitData = data;
+                                                    });
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text(
+                                                    data,
+                                                    style: TextStyle(color: primaryColor),
+                                                  ),
                                                 ),
-                                              ),
-                                            )
-                                          ],
-                                        );
-                                      }).toList(),
-                                    );
-                                  },
-                                );
-                              },
-                              title:
-                                  unitData == null ? firstUnitValue : unitData,
+                                              )
+                                            ],
+                                          );
+                                        }).toList(),
+                                      );
+                                    },
+                                  );
+                                },
+                                title: unitData == null ? firstUnitValue : unitData,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Count(
-                            productId: widget.productId,
-                            productImage: widget.productImage,
-                            productPrice: widget.productPrice,
-                            productName: widget.productName,
-                            productUnit:  unitData == null ? firstUnitValue : unitData,
-                          )
-                        ],
-                      )
-                    ],
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Count(
+                              productId: widget.productId,
+                              productImage: widget.productImage,
+                              productPrice: widget.productPrice,
+                              productName: widget.productName,
+                              productUnit: unitData == null ? firstUnitValue : unitData,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                ))
+                )
               ],
             ),
           )

@@ -32,7 +32,7 @@ class _DrawerSideState extends State<DrawerSide> {
   @override
   Widget build(BuildContext context) {
     var userData = widget.userProvider.currentUserData;
-    // userData.userImage =
+     //userData.userImage =
     // 'https://meowtel.com/img/assets/home/hero-image-cat-3.png';
     return Drawer(
       child: Container(

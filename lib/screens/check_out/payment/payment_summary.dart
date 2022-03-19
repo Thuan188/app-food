@@ -38,18 +38,17 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     cartProvider.getCartData();
 
     double discount = 15;
-    int shippingCharge = 15000;
-    double total;
     double discountValue;
+    int shippingCharge = 37000;
+    double total;
     int totalPrice = cartProvider.getTotalPrice();
     if (totalPrice > 200000) {
       discountValue = (totalPrice * discount) / 100;
 
       total = totalPrice - discountValue;
-      //print(total);
-    }
+    }else
 
-    // print(total);
+    print(total);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -81,7 +80,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
               myType == AddressTypes.OnlinePayment
                   ? Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => MyGooglePay(
-                            total: total,
+                            total: total.toDouble(),
                           )))
                   : myType == AddressTypes.Home
                       ? Container()

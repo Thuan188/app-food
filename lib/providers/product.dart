@@ -24,11 +24,10 @@ class ProductProvider with ChangeNotifier {
 //vegetable product
   fetchVegetableProductData() async {
     List<ProductModel> newList = [];
-    QuerySnapshot value =
-        await FirebaseFirestore.instance.collection("Vegetable").get();
+    QuerySnapshot value = await FirebaseFirestore.instance.collection("Vegetable").get();
 
     value.docs.forEach((element) {
-      // print(element.data());
+      //print(element.data());
       productModels(element);
       newList.add(productModel);
     });
@@ -43,11 +42,10 @@ class ProductProvider with ChangeNotifier {
 //fresh product
   fetchFreshProductData() async {
     List<ProductModel> newList = [];
-    QuerySnapshot value =
-        await FirebaseFirestore.instance.collection("Fresh").get();
+    QuerySnapshot value = await FirebaseFirestore.instance.collection("Fresh").get();
 
     value.docs.forEach((element) {
-      // print(element.data());
+      //print(element.data());
       productModels(element);
       newList.add(productModel);
     });
@@ -62,8 +60,7 @@ class ProductProvider with ChangeNotifier {
   //dairy product
   fetchDairyProductData() async {
     List<ProductModel> newList = [];
-    QuerySnapshot value =
-        await FirebaseFirestore.instance.collection("Dairy").get();
+    QuerySnapshot value = await FirebaseFirestore.instance.collection("Dairy").get();
 
     value.docs.forEach((element) {
       // print(element.data());

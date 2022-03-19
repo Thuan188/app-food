@@ -84,7 +84,6 @@ class _SearchState extends State<Search> {
                 height: 10,
               ),
               Column(
-
                 children: _searchItem.map((data) {
                   return SingleItem(
                     isBool: false,
