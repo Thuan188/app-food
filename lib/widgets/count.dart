@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app_order/helpers/colors.dart';
-import 'package:food_app_order/models/product.dart';
 import 'package:food_app_order/providers/cart.dart';
 import 'package:provider/provider.dart';
 
@@ -15,12 +14,7 @@ class Count extends StatefulWidget {
   int productQuantity;
   var productUnit;
   Count(
-      {this.productName,
-      this.productImage,
-      this.productId,
-      this.productUnit,
-      this.productQuantity,
-      this.productPrice});
+      {this.productName, this.productImage, this.productId, this.productUnit, this.productQuantity, this.productPrice});
 
   @override
   _CountState createState() => _CountState();
@@ -39,10 +33,9 @@ class _CountState extends State<Count> {
         height: 30,
         width: 50,
         decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.grey,
-            ),
-            borderRadius: BorderRadius.circular(10)),
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: isTrue == true
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -64,15 +57,10 @@ class _CountState extends State<Count> {
                           cartName: widget.productName,
                           cartPrice: widget.productPrice,
                           cartQuantity: count,
-
-                          //isAdd: true,
                         );
                       }
                     },
-                    child: Icon(
-                      Icons.remove,
-                      color: primaryColor,
-                    ),
+                    child: Icon(Icons.remove, color: primaryColor),
                   ),
                   Text(
                     "$count",
@@ -89,13 +77,9 @@ class _CountState extends State<Count> {
                         cartName: widget.productName,
                         cartPrice: widget.productPrice,
                         cartQuantity: count,
-                        //isAdd: true,
                       );
                     },
-                    child: Icon(
-                      Icons.add,
-                      color: primaryColor,
-                    ),
+                    child: Icon(Icons.add, color: primaryColor),
                   ),
                 ],
               )
@@ -112,13 +96,9 @@ class _CountState extends State<Count> {
                       cartPrice: widget.productPrice,
                       cartQuantity: count,
                       cartUnit: widget.productUnit,
-                      //isAdd: true,
                     );
                   },
-                  child: Text(
-                    "ADD",
-                    style: TextStyle(color: primaryColor),
-                  ),
+                  child: Text("ADD", style: TextStyle(color: primaryColor)),
                 ),
               ),
       ),
@@ -139,8 +119,7 @@ class _CountState extends State<Count> {
                     {
                       setState(() {
                         count = value.get("cartQuantity");
-                        isTrue = value
-                            .get("isAdd"); // neu true thi th1,false thi th2
+                        isTrue = value.get("isAdd"); // neu true thi th1,false thi th2
                       })
                     }
                 }

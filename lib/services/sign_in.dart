@@ -21,12 +21,6 @@ class SignInServices extends ChangeNotifier{
 
       final User user = (await _auth.signInWithCredential(credential)).user;
       print("signed in " + user.displayName);
-      // userProvider.addUserData(
-      //   currentUser: user,
-      //   userEmail: user.email,
-      //   userImage: user.photoURL,
-      //   userName: user.displayName,
-      // );
 
       return user;
     } catch (e) {

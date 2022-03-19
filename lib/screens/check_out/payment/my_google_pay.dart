@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:food_app_order/helpers/colors.dart';
 import 'package:food_app_order/screens/check_out/payment/payment_success.dart';
 import 'package:pay/pay.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class MyGooglePay extends StatefulWidget {
   final double total;
@@ -25,21 +24,14 @@ class _MyGooglePayState extends State<MyGooglePay> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor:primaryColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
-          'Confirm Payment',
-          style: TextStyle(color: textColor),
-        ),
+        title: Text('Confirm Payment', style: TextStyle(color: textColor)),
         backgroundColor: primaryColor,
       ),
       body: SingleChildScrollView(
@@ -47,9 +39,9 @@ class _MyGooglePayState extends State<MyGooglePay> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                height: 600,
-                child: Image.asset('assets/all_product.png',
-                    height: MediaQuery.of(context).size.height)),
+              height: 600,
+              child: Image.asset('assets/all_product.png', height: MediaQuery.of(context).size.height),
+            ),
           ],
         ),
       ),
@@ -67,13 +59,15 @@ class _MyGooglePayState extends State<MyGooglePay> {
             animationDuration: Duration(seconds: 3),
             color: Colors.black,
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => PaymentSucess()));
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => PaymentSucess(),
+              ));
             },
             child: GooglePayButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => PaymentSucess()));
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => PaymentSucess(),
+                ));
               },
               width: 100,
               paymentConfigurationAsset: 'sample_payment_configuration.json',
@@ -83,19 +77,13 @@ class _MyGooglePayState extends State<MyGooglePay> {
                   type: PaymentItemType.total,
                   amount: '${widget.total.toString()}',
                   status: PaymentItemStatus.final_price,
-                )
+                ),
               ],
               style: GooglePayButtonStyle.black,
               type: GooglePayButtonType.pay,
               onPaymentResult: onGooglePayResult,
-              // loadingIndicator: Center(
-              //   child: CircularProgressIndicator(
-              //     backgroundColor: primaryColor,
-              //   ),
-              // ),
             ),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           ),
         ),
       ),

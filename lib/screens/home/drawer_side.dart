@@ -18,22 +18,14 @@ class _DrawerSideState extends State<DrawerSide> {
   Widget listTile({IconData icon, String title, VoidCallback onTap}) {
     return ListTile(
       onTap: onTap,
-      leading: Icon(
-        icon,
-        size: 32,
-      ),
-      title: Text(
-        title,
-        style: TextStyle(color: Colors.black45),
-      ),
+      leading: Icon(icon, size: 32),
+      title: Text(title, style: TextStyle(color: Colors.black45)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     var userData = widget.userProvider.currentUserData;
-     //userData.userImage =
-    // 'https://meowtel.com/img/assets/home/hero-image-cat-3.png';
     return Drawer(
       child: Container(
         color: primaryColor,
@@ -48,11 +40,11 @@ class _DrawerSideState extends State<DrawerSide> {
                       radius: 45,
                       child: ClipOval(
                           child: Image.network(
-                           userData.userImage ?? '',
-                            fit: BoxFit.cover,
-                            width: 85.0,
-                            height: 85.0,
-                          )),
+                        userData.userImage ?? '',
+                        fit: BoxFit.cover,
+                        width: 85.0,
+                        height: 85.0,
+                      )),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -72,47 +64,42 @@ class _DrawerSideState extends State<DrawerSide> {
                 ),
               ),
             ),
-            listTile(icon: Icons.home_outlined, title: "Home", onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
-            }),
+            listTile(
+                icon: Icons.home_outlined,
+                title: "Home",
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => HomeScreen(),
+                  ));
+                }),
             listTile(
                 icon: Icons.shopping_bag_outlined,
                 title: "Cart",
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ReviewCart()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ReviewCart(),
+                  ));
                 }),
             listTile(
                 icon: Icons.person_outline,
                 title: "My Profile",
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MyProfile(
-                            userProvider: widget.userProvider,
-                          )));
+                    builder: (context) => MyProfile(userProvider: widget.userProvider),
+                  ));
                 }),
-            listTile(
-                icon: Icons.notifications_outlined,
-                title: "Notification",
-                onTap: () {}),
-            listTile(
-                icon: Icons.star_border_outlined,
-                title: "Rating & Review",
-                onTap: () {}),
+            listTile(icon: Icons.notifications_outlined, title: "Notification", onTap: () {}),
+            listTile(icon: Icons.star_border_outlined, title: "Rating & Review", onTap: () {}),
             listTile(
                 icon: Icons.favorite_outline,
                 title: "Wishlist",
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => WishList()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => WishList(),
+                  ));
                 }),
-            listTile(
-                icon: Icons.copy_outlined,
-                title: "Raise a Complaint",
-                onTap: () {}),
-            listTile(
-                icon: Icons.file_copy_outlined, title: "FAQs", onTap: () {}),
+            listTile(icon: Icons.copy_outlined, title: "Raise a Complaint", onTap: () {}),
+            listTile(icon: Icons.file_copy_outlined, title: "FAQs", onTap: () {}),
             Container(
               height: 300,
               child: Column(
@@ -128,10 +115,7 @@ class _DrawerSideState extends State<DrawerSide> {
                         padding: const EdgeInsets.only(top: 3, left: 10),
                         child: Text("Call us: "),
                       ),
-                      Text(
-                        "+84 898 210 911",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )
+                      Text("+84 898 210 911", style: TextStyle(fontWeight: FontWeight.bold))
                     ],
                   ),
                   SingleChildScrollView(
@@ -142,10 +126,7 @@ class _DrawerSideState extends State<DrawerSide> {
                           padding: const EdgeInsets.only(top: 3, left: 10),
                           child: Text("Mail us: "),
                         ),
-                        Text(
-                          "admin.food@gmail.com",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
+                        Text("admin.food@gmail.com", style: TextStyle(fontWeight: FontWeight.bold))
                       ],
                     ),
                   )

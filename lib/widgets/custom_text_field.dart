@@ -6,7 +6,6 @@ class CustomTextField extends StatelessWidget {
   final String labText;
   final TextInputType keyboardType;
 
-
   CustomTextField({
     this.controller,
     this.labText,
@@ -15,19 +14,12 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return TextField(
       controller: controller,
       keyboardType: keyboardType,
-
       decoration: InputDecoration(
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: textColor),
-        ),
-
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: primaryColor),
-        ),
+        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: textColor)),
+        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: primaryColor)),
         labelStyle: TextStyle(color: primaryColor),
         labelText: labText,
       ),

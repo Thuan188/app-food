@@ -23,19 +23,14 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         title: Text(
           "Delivery Details",
-          style: TextStyle(
-            color: textColor,
-          ),
+          style: TextStyle(color: textColor),
         ),
         backgroundColor: primaryColor,
       ),
@@ -44,7 +39,8 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
         child: Icon(Icons.add),
         onPressed: () {
           Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => AddDeliveryAddress()));
+            MaterialPageRoute(builder: (context) => AddDeliveryAddress()),
+          );
         },
       ),
       bottomNavigationBar: Container(
@@ -56,17 +52,14 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
           onPressed: () {
             address.isEmpty
                 ? Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AddDeliveryAddress()))
+                    builder: (context) => AddDeliveryAddress(),
+                  ))
                 : Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => PaymentSummary(
-                      deliveryAddressList: value,
-                    ),
+                    builder: (context) => PaymentSummary(deliveryAddressList: value),
                   ));
           },
           color: primaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),
       ),
       body: ListView(
@@ -79,19 +72,15 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
           ),
           deliveryAddressProvider.getDeliveryAddressList.isEmpty
               ? Container(
-                  child: Center(
-                    child: Text("No data"),
-                  ),
+                  child: Center(child: Text("No data")),
                 )
               : Column(
-                  children: deliveryAddressProvider.getDeliveryAddressList
-                      .map<Widget>((e) {
+                  children: deliveryAddressProvider.getDeliveryAddressList.map<Widget>((e) {
                     setState(() {
                       value = e;
                     });
                     return SingleDeliveryItem(
-                      address:
-                          "${e.street}, ${e.village}, ${e.ward}, ${e.district}, ${e.city}, ${e.country} ,",
+                      address: "${e.street}, ${e.village}, ${e.ward}, ${e.district}, ${e.city}, ${e.country} ,",
                       title: "${e.firstName} ${e.lastName}",
                       addressType: e.addressType == "AddressTypes.Other"
                           ? "Other"
@@ -101,7 +90,7 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
                       number: e.mobilePhone,
                     );
                   }).toList(),
-                )
+                ),
         ],
       ),
     );

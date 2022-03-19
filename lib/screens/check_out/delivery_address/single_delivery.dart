@@ -16,49 +16,40 @@ class SingleDeliveryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ListTile(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(title),
-            Container(
-              width: 60,
-              height: 20,
-              padding: EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Center(
-                child: Text(
-                  addressType,
-                  style: TextStyle(fontSize: 13, color: Colors.black),
+    return Column(
+      children: [
+        ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(title),
+              Container(
+                width: 60,
+                height: 20,
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(30)),
+                child: Center(
+                  child: Text(
+                    addressType,
+                    style: TextStyle(fontSize: 13, color: Colors.black),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
+          leading: CircleAvatar(radius: 8, backgroundColor: primaryColor),
+          subtitle: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(address),
+              SizedBox(height: 5),
+              Text(number),
+            ],
+          ),
         ),
-        leading: CircleAvatar(
-          radius: 8,
-          backgroundColor: primaryColor,
-        ),
-        subtitle: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(address),
-            SizedBox(
-              height: 5,
-            ),
-            Text(number),
-          ],
-        ),
-      ),
-      Divider(
-        height: 1,
-        color: Colors.black,
-      )
-    ]);
+        Divider(height: 1, color: Colors.black)
+      ],
+    );
   }
 }

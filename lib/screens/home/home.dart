@@ -19,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ProductProvider productProvider;
-  //tao product provider
 
   @override
   void initState() {
@@ -37,34 +36,22 @@ class _HomeScreenState extends State<HomeScreen> {
     UserProvider userProvider = Provider.of(context);
     userProvider.getUserData();
     return Scaffold(
-      drawer: DrawerSide(
-        userProvider: userProvider,
-      ),
+      drawer: DrawerSide(userProvider: userProvider),
       appBar: AppBar(
         backgroundColor: primaryColor,
         iconTheme: IconThemeData(color: textColor),
-        title: Text(
-          'Home',
-          style: TextStyle(color: textColor, fontSize: 18),
-        ),
+        title: Text('Home', style: TextStyle(color: textColor, fontSize: 18)),
         actions: [
           CircleAvatar(
             radius: 15,
             backgroundColor: Color(0xffd6d382),
             child: IconButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        Search(search: productProvider.getAllProductSearch),
-                  ),
-                );
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Search(search: productProvider.getAllProductSearch),
+                ));
               },
-              icon: Icon(
-                Icons.search,
-                size: 17,
-                color: textColor,
-              ),
+              icon: Icon(Icons.search, size: 17, color: textColor),
             ),
           ),
           Padding(
@@ -80,11 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircleAvatar(
                 backgroundColor: Color(0xffd6d382),
                 radius: 16,
-                child: Icon(
-                  Icons.shopping_cart,
-                  size: 17,
-                  color: textColor,
-                ),
+                child: Icon(Icons.shopping_cart, size: 17, color: textColor),
               ),
             ),
           ),
@@ -113,8 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.only(right: 130, bottom: 10),
+                            padding: const EdgeInsets.only(right: 130, bottom: 10),
                             child: Container(
                               height: 50,
                               width: 100,
@@ -133,9 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.white,
                                     shadows: [
                                       BoxShadow(
-                                          color: Colors.green,
-                                          blurRadius: 10,
-                                          offset: Offset(3, 3))
+                                        color: Colors.green,
+                                        blurRadius: 10,
+                                        offset: Offset(3, 3),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -144,18 +127,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                             '15% Off',
-                            style: TextStyle(
-                                fontSize: 40,
-                                color: Colors.green[100],
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 40, color: Colors.green[100], fontWeight: FontWeight.bold),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: Text(
                               'On all vegetables products',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ],
@@ -195,21 +173,14 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Fresh Fruits',
-                style: TextStyle(fontSize: 15),
-              ),
+              Text('Fresh Fruits', style: TextStyle(fontSize: 15)),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Search(
-                            search: productProvider.getFreshDatalist,
-                          )));
+                    builder: (context) => Search(search: productProvider.getFreshDatalist),
+                  ));
                 },
-                child: Text(
-                  'See all',
-                  style: TextStyle(fontSize: 15, color: Colors.grey),
-                ),
+                child: Text('See all', style: TextStyle(fontSize: 15, color: Colors.grey)),
               )
             ],
           ),
@@ -252,21 +223,14 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Dairy Products',
-                style: TextStyle(fontSize: 15),
-              ),
+              Text('Dairy Products', style: TextStyle(fontSize: 15)),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Search(
-                            search: productProvider.getDairyDatalist,
-                          )));
+                    builder: (context) => Search(search: productProvider.getDairyDatalist),
+                  ));
                 },
-                child: Text(
-                  'See all',
-                  style: TextStyle(fontSize: 15, color: Colors.grey),
-                ),
+                child: Text('See all', style: TextStyle(fontSize: 15, color: Colors.grey)),
               )
             ],
           ),
@@ -310,18 +274,18 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Text(
                 'Vegetable Products',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15)
               ),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => Search(
-                            search: productProvider.getVegetableDatalist,
-                          )));
+                            search: productProvider.getVegetableDatalist
+                          ),));
                 },
                 child: Text(
                   'See all',
-                  style: TextStyle(fontSize: 15, color: Colors.grey),
+                  style: TextStyle(fontSize: 15, color: Colors.grey)
                 ),
               )
             ],

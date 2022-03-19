@@ -26,18 +26,12 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: textColor,
-          ),
+          icon: Icon(Icons.arrow_back, color: textColor),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
-          "Add Delivery Address",
-          style: TextStyle(color: textColor),
-        ),
+        title: Text("Add Delivery Address", style: TextStyle(color: textColor)),
         backgroundColor: primaryColor,
       ),
       bottomNavigationBar: Container(
@@ -54,7 +48,8 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
                 ),
                 color: primaryColor,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(30),
+                ),
               )
             : Center(
                 child: CircularProgressIndicator(),
@@ -103,7 +98,8 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
             InkWell(
               onTap: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => CustomGoogleMap()));
+                  MaterialPageRoute(builder: (context) => CustomGoogleMap()),
+                );
               },
               child: Container(
                 height: 50,
@@ -113,10 +109,7 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     checkoutProvider.setLocation == null
-                        ? Text(
-                            "Set Location",
-                            style: TextStyle(fontSize: 15),
-                          )
+                        ? Text("Set Location", style: TextStyle(fontSize: 15))
                         : Text('Done !')
                   ],
                 ),

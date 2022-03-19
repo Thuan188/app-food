@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_app_order/helpers/colors.dart';
-import 'package:food_app_order/models/product.dart';
 import 'package:food_app_order/widgets/count.dart';
 import 'package:food_app_order/widgets/product_unit.dart';
 
@@ -57,9 +56,7 @@ class _SignalProductState extends State<SignalProduct> {
                     height: 160,
                     padding: EdgeInsets.all(5),
                     width: double.infinity,
-                    child: Image.network(
-                      widget.productImage,
-                    ),
+                    child: Image.network(widget.productImage),
                   ),
                 ),
                 Expanded(

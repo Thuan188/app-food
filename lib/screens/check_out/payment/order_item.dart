@@ -11,38 +11,27 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.network(
-        e.cartImage,
-        width: 70,
-      ),
+      leading: Image.network(e.cartImage, width: 70),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             e.cartName,
-            style: TextStyle(
-              color: textColor,
-            ),
+            style: TextStyle(color: textColor),
           ),
           Text(
             e.cartUnit,
-            style: TextStyle(
-              color: textColor
-            ),
+            style: TextStyle(color: textColor),
           ),
           Text(
             "${e.cartPrice}đ",
-            style: TextStyle(
-              color: textColor,fontWeight: FontWeight.bold
-            ),
+            style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
           )
         ],
       ),
       subtitle: Text(
         e.cartQuantity.toString(),
-        style: TextStyle(
-          color: textColor,
-        ),
+        style: TextStyle(color: textColor),
       ),
     );
   }

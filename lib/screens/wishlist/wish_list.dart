@@ -15,23 +15,21 @@ class _WishListState extends State<WishList> {
   showAlertDialog(BuildContext context, ProductModel delete) {
     // set up the buttons
     Widget cancelButton = FlatButton(
-      child: Text("No"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
+        child: Text("No"),
+        onPressed: () {
+          Navigator.of(context).pop();
+        });
     Widget continueButton = FlatButton(
-      child: Text("Yes"),
-      onPressed: () {
-        wishListProvider.deleteWishtList(delete.productId);
-        Navigator.of(context).pop();
-      },
-    );
+        child: Text("Yes"),
+        onPressed: () {
+          wishListProvider.deleteWishtList(delete.productId);
+          Navigator.of(context).pop();
+        });
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("WishList Product"),
-      content: Text("Are you devete on wishList Product?"),
+      content: Text("Are you delete on wishList Product?"),
       actions: [
         cancelButton,
         continueButton,
@@ -40,11 +38,10 @@ class _WishListState extends State<WishList> {
 
     // show the dialog
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        });
   }
 
   @override
@@ -54,45 +51,37 @@ class _WishListState extends State<WishList> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
         backgroundColor: primaryColor,
-        title: Text(
-          "WishList",
-          style: TextStyle(color: textColor),
-        ),
+        title: Text("WishList", style: TextStyle(color: textColor)),
       ),
       body: wishListProvider.getWishList.isEmpty
-          ? Center(
-              child: Text('No data'),
-            )
+          ? Center(child: Text('No data'))
           : ListView.builder(
+              scrollDirection: Axis.vertical,
               itemCount: wishListProvider.getWishList.length,
               itemBuilder: (context, index) {
                 ProductModel data = wishListProvider.getWishList[index];
                 return Column(
                   children: [
-                    SizedBox(
-                      height: 10,
-                    ),
                     SingleItem(
-                      isBool: true,
+                      wishList: true,
                       productImage: data.productImage,
                       productName: data.productName,
                       productPrice: data.productPrice,
                       productId: data.productId,
-                      productUnit: data.productUnit,
                       productQuantity: data.productQuantity,
                       onDelete: () {
                         showAlertDialog(context, data);
                       },
                     ),
+                    Divider(
+                      height: 1,
+                      color: textColor,
+                    )
                   ],
                 );
               },

@@ -23,7 +23,6 @@ class WishListProvider with ChangeNotifier {
       "wishListImage": wishListImage,
       "wishListPrice": wishListPrice,
       "wishListQuantity": wishListQuantity,
-      //"wishListUnit": wishListUnit,
       "wishList": true,
     });
   }
@@ -46,7 +45,6 @@ class WishListProvider with ChangeNotifier {
           productName: element.get("wishListName"),
           productPrice: element.get("wishListPrice"),
           productQuantity: element.get("wishListQuantity"),
-          //productUnit: element.get("wishListUnit")
         );
         newList.add(productModel);
       },

@@ -16,8 +16,7 @@ class ProductOverview extends StatefulWidget {
   final String productImage;
   final int productPrice;
   final String productId;
-  ProductOverview(
-      {this.productId, this.productImage, this.productName, this.productPrice});
+  ProductOverview({this.productId, this.productImage, this.productName, this.productPrice});
 
   @override
   _ProductOverviewState createState() => _ProductOverviewState();
@@ -43,18 +42,9 @@ class _ProductOverviewState extends State<ProductOverview> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                iconData,
-                size: 20,
-                color: iconColor,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                title,
-                style: TextStyle(color: color),
-              ),
+              Icon(iconData, size: 20, color: iconColor),
+              SizedBox(width: 5),
+              Text(title, style: TextStyle(color: color)),
             ],
           ),
         ),
@@ -72,18 +62,18 @@ class _ProductOverviewState extends State<ProductOverview> {
         .doc(widget.productId)
         .get()
         .then((value) => {
-      if (this.mounted)
-        {
-          if (value.exists)
-            {
-              setState(
-                    () {
-                  wishListBool = value.get("wishList");
-                },
-              ),
-            }
-        }
-    });
+              if (this.mounted)
+                {
+                  if (value.exists)
+                    {
+                      setState(
+                        () {
+                          wishListBool = value.get("wishList");
+                        },
+                      ),
+                    }
+                }
+            });
   }
 
   @override
@@ -98,9 +88,7 @@ class _ProductOverviewState extends State<ProductOverview> {
               color: Colors.white70,
               iconColor: Colors.grey,
               title: "Add To WishList",
-              iconData: wishListBool == false
-                  ? Icons.favorite_outline
-                  : Icons.favorite,
+              iconData: wishListBool == false ? Icons.favorite_outline : Icons.favorite,
               onTap: () {
                 setState(() {
                   wishListBool = !wishListBool;
@@ -112,7 +100,6 @@ class _ProductOverviewState extends State<ProductOverview> {
                     wishListName: widget.productName,
                     wishListPrice: widget.productPrice,
                     wishListQuantity: 2,
-
                   );
                 } else {
                   wishListProvider.deleteWishtList(widget.productId);
@@ -135,19 +122,13 @@ class _ProductOverviewState extends State<ProductOverview> {
       ),
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         backgroundColor: primaryColor,
-        title: Text(
-          "Product Overview",
-          style: TextStyle(color: textColor),
-        ),
+        title: Text("Product Overview", style: TextStyle(color: textColor)),
       ),
       body: Column(
         children: [
@@ -163,11 +144,12 @@ class _ProductOverviewState extends State<ProductOverview> {
                       subtitle: Text("\ ${widget.productPrice}đ"),
                     ),
                     Container(
-                        height: 250,
-                        padding: EdgeInsets.all(40),
-                        child: Image.network(
-                          widget.productImage ?? "",
-                        )),
+                      height: 250,
+                      padding: EdgeInsets.all(40),
+                      child: Image.network(
+                        widget.productImage ?? "",
+                      ),
+                    ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       width: double.infinity,
@@ -239,10 +221,7 @@ class _ProductOverviewState extends State<ProductOverview> {
                   ),
                   Text(
                     "A product is anything that can be offered to a market for attention, acquisition, use, or consumption in order to satisfy a need or want. It can be objects, services, people, places, organizations or an idea",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: textColor,
-                    ),
+                    style: TextStyle(fontSize: 16, color: textColor),
                   ),
                 ],
               ),
