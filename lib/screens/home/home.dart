@@ -22,10 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    ProductProvider initproductProvider = Provider.of(context, listen: false);
-    initproductProvider.fetchVegetableProductData();
-    initproductProvider.fetchFreshProductData();
-    initproductProvider.fetchDairyProductData();
+    ProductProvider initProductProvider = Provider.of(context, listen: false);
+    initProductProvider.fetchVegetableProductData();
+    initProductProvider.fetchFreshProductData();
+    initProductProvider.fetchDairyProductData();
 
     super.initState();
   }
@@ -272,21 +272,14 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Vegetable Products',
-                style: TextStyle(fontSize: 15)
-              ),
+              Text('Vegetable Products', style: TextStyle(fontSize: 15)),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Search(
-                            search: productProvider.getVegetableDatalist
-                          ),));
+                    builder: (context) => Search(search: productProvider.getVegetableDatalist),
+                  ));
                 },
-                child: Text(
-                  'See all',
-                  style: TextStyle(fontSize: 15, color: Colors.grey)
-                ),
+                child: Text('See all', style: TextStyle(fontSize: 15, color: Colors.grey)),
               )
             ],
           ),
